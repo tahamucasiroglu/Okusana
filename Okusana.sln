@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Okusana.API", "Presentation
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{04004F9D-5BD9-4809-B744-963D7A084252}"
 	ProjectSection(SolutionItems) = preProject
-		Proje.md = Proje.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
