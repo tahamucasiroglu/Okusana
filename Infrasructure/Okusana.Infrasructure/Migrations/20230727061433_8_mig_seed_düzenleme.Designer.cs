@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Okusana.Infrasructure.Contexts.PgContext;
@@ -11,9 +12,11 @@ using Okusana.Infrasructure.Contexts.PgContext;
 namespace Okusana.Infrasructure.Migrations
 {
     [DbContext(typeof(OkusanaPgContext))]
-    partial class OkusanaPgContextModelSnapshot : ModelSnapshot
+    [Migration("20230727061433_8_mig_seed_düzenleme")]
+    partial class _8_mig_seed_düzenleme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

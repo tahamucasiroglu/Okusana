@@ -32,4 +32,5 @@
 * postgresql in içinde bir sürü farklýlýklar var sql server a göre bak sonra ona göre optimize et 
 * bloglarda publicationDate için kontrol ekle iþte vakti gelince yayýnlasýn ama burasý nasýl olacak hangfire yapar mý bilemedinm.
 * db de userid gibi þeyleri ef kendi ayarlýyor onlarý ilerde kaldýr þimdi karýþacak kalsýn
+* yorumlarýda recursive yap yoruma yorum yapsýnlar
 

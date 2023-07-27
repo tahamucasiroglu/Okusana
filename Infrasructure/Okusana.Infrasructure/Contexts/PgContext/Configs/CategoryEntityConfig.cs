@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Okusana.Entities.Base;
 using Okusana.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okusana.Infrasructure.Contexts.PgContext.Configs
 {
@@ -16,20 +11,22 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
         {
             entity.HasBaseType(typeof(Entity));//test et (dev not: burada da oluyor galiba direk genel configde use tcp ile de oluyor bakalım.)
             entity.ToTable(nameof(OkusanaPgContext.Categories));
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => e.Name);
+            //entity.HasKey(e => e.Id);
+            entity.HasIndex(e => new { e.Name, e.CreateDate, e.IsDeleted });
+            //entity.HasQueryFilter(e => !e.IsDeleted);
+            //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
             entity.Property(e => e.Name)
                .IsRequired(true)
                .HasMaxLength(50)
                .IsUnicode(false)
-               .HasComment("kategori adları");
+               .HasComment("kategori adlari");
 
             entity.Property(e => e.Description)
                .IsRequired(false)
                .HasMaxLength(150)
                .IsUnicode(false)
-               .HasComment("category açıklaması");
+               .HasComment("category aciklamasi");
 
             entity.HasOne(d => d.ParentCategory).WithMany(p => p.SubCategories)
                 .HasForeignKey(d => d.ParentId)

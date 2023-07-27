@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Okusana.Entities.Base;
 using Okusana.Entities.Concrete;
-using System.Reflection;
+using Okusana.Infrasructure.Extensions;
 
 namespace Okusana.Infrasructure.Contexts.PgContext
 {
@@ -9,11 +10,12 @@ namespace Okusana.Infrasructure.Contexts.PgContext
         public OkusanaPgContext() { }
         public OkusanaPgContext(DbContextOptions<OkusanaPgContext> options) : base(options) { }
 
-        public virtual DbSet<Blog> Blogs { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<HashTag> HashTags { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        virtual public DbSet<Entity> Entities { get; set; }
+        virtual public DbSet<Blog> Blogs { get; set; }
+        virtual public DbSet<Category> Categories { get; set; }
+        virtual public DbSet<Comment> Comments { get; set; }
+        virtual public DbSet<HashTag> HashTags { get; set; }
+        virtual public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder
@@ -22,9 +24,10 @@ namespace Okusana.Infrasructure.Contexts.PgContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseCollation("Turkish_Turkey.1254");
+            modelBuilder.UseTurkishPostgreSql();
+            modelBuilder.GetAllConfigsAuto();
+            modelBuilder.Seeding();
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

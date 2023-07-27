@@ -1,13 +1,8 @@
 ﻿using Okusana.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okusana.Entities.Concrete
 {
-    public class Category : Entity
+    public class Category : Entity//ek tablo sub için tablo tap
     {
         public Guid? ParentId { get; set; }
         public string Name { get; set; } = null!;

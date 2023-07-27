@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Okusana.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Okusana.Entities.Base;
 
 namespace Okusana.Infrasructure.Contexts.PgContext.Configs
@@ -16,8 +11,11 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
         {
             entity.HasBaseType(typeof(Entity));//test et (dev not: burada da oluyor galiba direk genel configde use tcp ile de oluyor bakalım.)
             entity.ToTable(nameof(OkusanaPgContext.Blogs));
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => e.Title);
+            //entity.HasKey(e => e.Id);
+            entity.HasIndex(e => new { e.Title, e.IsPublished, e.CreateDate, e.IsDeleted });
+            //entity.HasQueryFilter(e => e.IsPublished);
+            //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
+            //unit of work desing pattern çevirir. dbcontext ezmeli.
 
             entity.Property(e => e.Title)
                 .IsRequired(true)
@@ -32,9 +30,13 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
                 .HasComment("blog gövdesi 3000 karakter sınırı var");
 
             entity.Property(e => e.PublicationDate)
-                .HasColumnType("datetime")// saatine göre yayın için datetime dedim
-                .IsRequired(true)
+                .HasColumnType("timestamp with time zone")// saatine göre yayın için datetime dedim
+                .IsRequired(false)
                 .HasComment("isteğe bağlı yayınlanma tarihi");
+
+            entity.Property(e => e.IsPublished)
+                .IsRequired(true)
+                .HasComment("yayınlanma durumunu verir");
 
             entity.HasOne(e => e.User).WithMany(e => e.Blogs)
                 .HasForeignKey(e => e.UserId)

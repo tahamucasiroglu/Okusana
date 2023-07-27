@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Okusana.Entities.Base;
 using Okusana.Entities.Concrete;
 using Okusana.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okusana.Infrasructure.Contexts.PgContext.Configs
 {
@@ -16,11 +11,13 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
         public void Configure(EntityTypeBuilder<User> entity)
         {
             entity.HasBaseType(typeof(Entity));//test et (dev not: burada da oluyor galiba direk genel configde use tcp ile de oluyor bakalım.)
-            entity.ToTable(nameof(OkusanaPgContext.Users));
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => new { e.Id, e.Email });
+            //entity.ToTable(nameof(OkusanaPgContext.Users));
+            //entity.HasKey(e => e.Id);
+            entity.HasIndex(e => new { e.Id, e.Email, e.CreateDate, e.IsDeleted });
             entity.Ignore(e => e.FullName);
             entity.Ignore(e => e.Age);
+            //entity.HasQueryFilter(e => !e.IsDeleted);
+            //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
             entity.Property(e => e.Name)
                 .HasMaxLength(100)

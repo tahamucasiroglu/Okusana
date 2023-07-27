@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace Okusana.Extensions
 {
@@ -39,7 +37,19 @@ namespace Okusana.Extensions
 
             return digits[9] == tenthDigit && digits[10] == eleventhDigit;
         }
-    
-    
+
+        static public string ToSha256(this string str)
+        {
+            var sb = new StringBuilder();
+            using (var hash = SHA256.Create())
+            {
+                var result = hash.ComputeHash(Encoding.UTF8.GetBytes(str));
+                for (int i = 0; i < result.Length; i++)
+                    sb.Append(result[i].ToString("x2"));
+            }
+            return sb.ToString();
+
+        }
+
     }
 }
