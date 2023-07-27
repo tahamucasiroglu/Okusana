@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Okusana.Constants\Okusana.Constants.csproj" />
+    <ProjectReference Include="..\..\Domain\Okusana.DTOs\Okusana.DTOs.csproj" />
+    <ProjectReference Include="..\..\Domain\Okusana.Entities\Okusana.Entities.csproj" />
+    <ProjectReference Include="..\..\Domain\Okusana.Extensions\Okusana.Extensions.csproj" />
+    <ProjectReference Include="..\..\Domain\Okusana.Returns\Okusana.Returns.csproj" />
+  </ItemGroup>
+
 </Project>
