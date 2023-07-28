@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Okusana.Entities.Base;
 
 namespace Okusana.Entities.Concrete
 {
-    public class BlogTag // hareket tablosu
+    public class BlogTag : Entity // hareket tablosu
     {
         public Guid BlogId { get; set; }
         public Guid TagId { get; set; }

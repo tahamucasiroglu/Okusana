@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using Okusana.DTOs.Abstract;
 
 namespace Okusana.DTOs.Base
 {
-    abstract public record GetDTO
+    abstract public record GetDTO : IGetDTO
     {
         public Guid Id { get; init; }
         public DateTime CreateDate { get; init; }
