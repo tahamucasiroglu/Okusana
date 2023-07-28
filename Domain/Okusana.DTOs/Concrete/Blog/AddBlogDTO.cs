@@ -9,6 +9,5 @@ namespace Okusana.DTOs.Concrete.Blog
         public string Title { get; init; } = null!;
         public string Content { get; init; } = null!;
         public DateTime? PublicationDate { get; init; }
-        public bool IsPublished { get; init; }
     }
 }

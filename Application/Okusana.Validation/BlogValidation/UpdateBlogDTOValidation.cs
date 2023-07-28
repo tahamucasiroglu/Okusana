@@ -2,14 +2,13 @@
 using Okusana.DTOs.Concrete.Blog;
 using Okusana.Validation.Extensions;
 
-
 namespace Okusana.Validation.BlogValidation
 {
-    public class AddBlogDTOValidation : AbstractValidator<AddBlogDTO>
+    public class UpdateBlogDTOValidation : AbstractValidator<UpdateBlogDTO>
     {
-        public AddBlogDTOValidation()
+        public UpdateBlogDTOValidation()
         {
-            RuleFor(e => e.UserId).UserIdValidation();
+            RuleFor(e => e.Id).IdValidation();
             RuleFor(e => e.SubCategoryId).SubCategoryIdValidation();
             RuleFor(e => e.Title).TitleValidation();
             RuleFor(e => e.Content).ContentValidation();

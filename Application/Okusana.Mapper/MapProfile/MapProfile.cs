@@ -14,14 +14,16 @@ namespace Okusana.Mapper.MapProfile
     {
         public MapProfile() 
         {
-            CreateMap<AddBlogDTO, Blog>().DefaultAddMapConfig();
+            CreateMap<AddBlogDTO, Blog>().DefaultAddMapConfig()
+                .ForMember(dest => dest.IsPublished, src => src.MapFrom(src => src.PublicationDate == null));
             CreateMap<AddCategoryDTO, Category>().DefaultAddMapConfig();
             CreateMap<AddCommentDTO, Comment>().DefaultAddMapConfig();
             CreateMap<AddHashTagDTO, HashTag>().DefaultAddMapConfig();
             CreateMap<AddSubCategoryDTO, SubCategory>().DefaultAddMapConfig();
             CreateMap<AddUserDTO, User>().DefaultAddMapConfig();
 
-            CreateMap<UpdateBlogDTO, Blog>().DefaultUpdateMapConfig();
+            CreateMap<UpdateBlogDTO, Blog>().DefaultUpdateMapConfig()
+                 .ForMember(dest => dest.IsPublished, src => src.MapFrom(src => src.PublicationDate == null));
             CreateMap<UpdateCategoryDTO, Category>().DefaultUpdateMapConfig();
             CreateMap<UpdateCommentDTO, Comment>().DefaultUpdateMapConfig();
             CreateMap<UpdateHashTagDTO, HashTag>().DefaultUpdateMapConfig();

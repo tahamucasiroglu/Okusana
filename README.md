@@ -34,3 +34,6 @@
 * db de userid gibi þeyleri ef kendi ayarlýyor onlarý ilerde kaldýr þimdi karýþacak kalsýn
 * yorumlarýda recursive yap yoruma yorum yapsýnlar
 * bazý yerlerde view eklebilir
+
+### sorulacaklar
+* validationdaki Isrequired içindeki isrequired durmalý mý amacý config te require true dan false olursa exception fýrlatýp hatýrlatmak

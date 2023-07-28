@@ -18,27 +18,29 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
             //unit of work desing pattern çevirir. dbcontext ezmeli.
 
+            entity.Property(e => e.UserId).IsRequired(BlogDbSettingsConstant.BlogUserIdIsRequired);//bu ve altı gereksiz ama buralr olurda değişirse fluent validationda da göstermek için yaptım kaldırırm olmadı koyma amacım anlık değil ömürlük olarak bilgi vermek başkası bakınca hata atacağı için anlayacak tabi dökğman yazsamda olurdu
+            entity.Property(e => e.SubCategoryId).IsRequired(BlogDbSettingsConstant.BlogSubCategoryIdIsRequired);
 
             entity.Property(e => e.Title)
                 .IsRequired(BlogDbSettingsConstant.BlogTitleIsRequired)
                 .HasMaxLength(BlogDbSettingsConstant.BlogTitleLength)
                 .IsUnicode(BlogDbSettingsConstant.BlogTitleIsUnicode)
-                .HasComment(BlogDbSettingsConstant.BlogTitleComment);
+                .HasComment("Blog başlığı 150 karakter sınırı var");
 
             entity.Property(e => e.Content)
-                .HasColumnType(BlogDbSettingsConstant.BlogContentColumnType)
+                .HasColumnType("text")
                 .IsRequired(BlogDbSettingsConstant.BlogContentIsRequired)
                 .HasMaxLength(BlogDbSettingsConstant.BlogContentLength) //blog yazacak roman değil 3000 çok adama olana :)
-                .HasComment(BlogDbSettingsConstant.BlogContentComment);
+                .HasComment("blog gövdesi 3000 karakter sınırı var");
 
             entity.Property(e => e.PublicationDate)
-                .HasColumnType(BlogDbSettingsConstant.BlogPublicationDateColumnType)// saatine göre yayın için datetime dedim
+                .HasColumnType("timestamp with time zone")// saatine göre yayın için datetime dedim
                 .IsRequired(BlogDbSettingsConstant.BlogPublicationDateIsRequired)
-                .HasComment(BlogDbSettingsConstant.BlogPublicationDateComment);
+                .HasComment("isteğe bağlı yayınlanma tarihi");
 
             entity.Property(e => e.IsPublished)
                 .IsRequired(BlogDbSettingsConstant.BlogIsPublishedIsRequired)
-                .HasComment(BlogDbSettingsConstant.BlogIsPublishedComment);
+                .HasComment("yayınlanma durumunu verir");
 
             entity.HasOne(e => e.User).WithMany(e => e.Blogs)
                 .HasForeignKey(e => e.UserId)
