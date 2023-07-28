@@ -1,22 +1,17 @@
 ﻿using Okusana.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okusana.DTOs.Concrete.User
 {
-    public class UpdateUserDTO : UpdateDTO
+    public sealed record UpdateUserDTO : UpdateDTO
     {
-        public string Name { get; set; } = null!;
-        public string Surname { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string? Phone { get; set; }
-        public string? IdentityNumber { get; set; }
-        public DateTime BirthDate { get; set; }
-        public bool? Gender { get; set; }
-        public string Password { get; set; } = null!;
-        public string Status { get; set; } = null!;
+        public string Name { get; init; } = null!;
+        public string Surname { get; init; } = null!;
+        public string Email { get; init; } = null!;
+        public string? Phone { get; init; }
+        public string? IdentityNumber { get; init; }
+        public DateTime BirthDate { get; init; }
+        public bool? Gender { get; init; }
+        public string Password { get; init; } = null!;
+        public string Status { get; init; } = null!;
     }
 }

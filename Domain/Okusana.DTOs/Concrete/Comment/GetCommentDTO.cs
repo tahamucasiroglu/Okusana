@@ -3,7 +3,7 @@
 
 namespace Okusana.DTOs.Concrete.Comment
 {
-    public sealed record UpdateCommentDTO : UpdateDTO
+    public sealed record GetCommentDTO : GetDTO
     {
         public Guid BlogId { get; init; }
         public Guid UserId { get; init; }

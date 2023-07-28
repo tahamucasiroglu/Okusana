@@ -1,15 +1,11 @@
 ﻿using Okusana.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Okusana.DTOs.Concrete.Category
 {
-    public class AddCategoryDTO : AddDTO
+    public sealed record AddCategoryDTO : AddDTO
     {
-        public string Name { get; set; } = null!;
-        public string? Description { get; set; }
+        public string Name { get; init; } = null!;
+        public string? Description { get; init; }
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Okusana.DTOs.Base
 {
-    abstract public class DeleteDTO : DTO, IDeleteDTO
+    abstract public record DeleteDTO : DTO, IDeleteDTO
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 }

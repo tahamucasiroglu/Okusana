@@ -1,19 +1,14 @@
 ﻿using Okusana.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okusana.DTOs.Concrete.Blog
 {
-    public class AddBlogDTO : AddDTO
+    public sealed record AddBlogDTO : AddDTO
     {
-        public Guid UserId { get; set; }
-        public Guid SubCategoryId { get; set; }
-        public string Title { get; set; } = null!;
-        public string Content { get; set; } = null!;
-        public DateTime? PublicationDate { get; set; }
-        public bool IsPublished { get; set; }
+        public Guid UserId { get; init; }
+        public Guid SubCategoryId { get; init; }
+        public string Title { get; init; } = null!;
+        public string Content { get; init; } = null!;
+        public DateTime? PublicationDate { get; init; }
+        public bool IsPublished { get; init; }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using Okusana.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Okusana.DTOs.Concrete.Blog
 {
-    public class DeleteBlogDTO : DeleteDTO
+    public sealed record DeleteBlogDTO : DeleteDTO
     {
     }
 }

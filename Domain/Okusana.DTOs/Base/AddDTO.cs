@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Okusana.DTOs.Base
 {
-    abstract public class AddDTO : DTO, IAddDTO
+    abstract public record AddDTO : DTO, IAddDTO
     {
     }
 }

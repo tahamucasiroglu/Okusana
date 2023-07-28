@@ -1,13 +1,12 @@
-﻿using Okusana.DTOs.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Okusana.DTOs.Base
+namespace Okusana.DTOs.Abstract
 {
-    abstract public record DTO : IDTO
+    public interface IGetDTO : IDTO
     {
     }
 }
