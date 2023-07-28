@@ -21,8 +21,6 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("etiket ismi");
-
-            entity.HasMany(e => e.Blogs).WithMany(e => e.HashTags);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             entity.HasBaseType(typeof(Entity));//test et (dev not: burada da oluyor galiba direk genel configde use tcp ile de oluyor bakalım.)
             entity.ToTable(nameof(OkusanaPgContext.Categories));
             //entity.HasKey(e => e.Id);
-            entity.HasIndex(e => new { e.Name, e.CreateDate, e.IsDeleted });
+            entity.HasIndex(e => new { e.Name });
             //entity.HasQueryFilter(e => !e.IsDeleted);
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
@@ -27,12 +27,6 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
                .HasMaxLength(150)
                .IsUnicode(false)
                .HasComment("category aciklamasi");
-
-            entity.HasOne(d => d.ParentCategory).WithMany(p => p.SubCategories)
-                .HasForeignKey(d => d.ParentId)
-                .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("FK_Categories_Categories");
-
         }
     }
 }

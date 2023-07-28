@@ -13,9 +13,10 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             entity.ToTable(nameof(OkusanaPgContext.Blogs));
             //entity.HasKey(e => e.Id);
             entity.HasIndex(e => new { e.Title, e.IsPublished, e.CreateDate, e.IsDeleted });
-            //entity.HasQueryFilter(e => e.IsPublished);
+            //entity.HasQueryFilter(e => e.IsPublished); // artık mecbur her where e yazacan
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
             //unit of work desing pattern çevirir. dbcontext ezmeli.
+
 
             entity.Property(e => e.Title)
                 .IsRequired(true)
@@ -41,12 +42,12 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             entity.HasOne(e => e.User).WithMany(e => e.Blogs)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("FK_Blogs_Users");
+                .HasConstraintName("FK_Blog_User");
 
-            entity.HasOne(e => e.Category).WithMany(e => e.Blogs)
-                .HasForeignKey(e => e.CategoryId)
+            entity.HasOne(e => e.SubCategory).WithMany(e => e.Blogs)
+                .HasForeignKey(e => e.SubCategoryId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("FK_Blogs_Categories");
+                .HasConstraintName("FK_Blog_SubCategories");
 
         }
     }

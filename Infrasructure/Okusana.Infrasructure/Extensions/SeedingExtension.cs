@@ -52,79 +52,7 @@ namespace Okusana.Infrasructure.Extensions
                     IsDeleted = false,
                     Name = "Spor",
                     Description = "Spor türündeki kategorileri içerir",
-                    ParentId = null,
                 },
-                new Category
-                {
-                    Id = futbolId,
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Futbol",
-                    Description = "Futbol yazıları",
-                    ParentId = sporId,
-                },
-                new Category
-                {
-                    Id = basketbolId,
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Basketbol",
-                    Description = "Basketbol yazıları",
-                    ParentId = sporId,
-                },
-                new Category
-                {
-                    Id = amatorlig,
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Amatör Lig",
-                    Description = "Amatör futbol ligi",
-                    ParentId = futbolId,
-                },
-                new Category
-                {
-                    Id = superlig,
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Süperlig",
-                    Description = "Süperlig yazıları",
-                    ParentId = futbolId,
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Türkiye",
-                    Description = "Türkiye baskett yazıları",
-                    ParentId = basketbolId,
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "NBA",
-                    Description = "NBA basket yazıları",
-                    ParentId = basketbolId,
-                },
-
-
-
-
-
                 new Category
                 {
                     Id = teknolojiId,
@@ -134,9 +62,35 @@ namespace Okusana.Infrasructure.Extensions
                     IsDeleted = false,
                     Name = "Teknoloji",
                     Description = "Teknoloji yazıları içerir",
-                    ParentId = null,
+                }
+            #endregion
+            );
+
+            builder.Entity<SubCategory>().HasData
+            (
+                new SubCategory
+                {
+                    Id = futbolId,
+                    CreateDate = DateTime.UtcNow,
+                    UpdateDate = null,
+                    DeleteDate = null,
+                    IsDeleted = false,
+                    Name = "Futbol",
+                    Description = "Futbol yazıları",
+                    CategoryId = sporId,
                 },
-                new Category
+                new SubCategory
+                {
+                    Id = basketbolId,
+                    CreateDate = DateTime.UtcNow,
+                    UpdateDate = null,
+                    DeleteDate = null,
+                    IsDeleted = false,
+                    Name = "Basketbol",
+                    Description = "Basketbol yazıları",
+                    CategoryId = sporId,
+                },
+                new SubCategory
                 {
                     Id = bilgisayarId,
                     CreateDate = DateTime.UtcNow,
@@ -145,9 +99,9 @@ namespace Okusana.Infrasructure.Extensions
                     IsDeleted = false,
                     Name = "Bilgisayar",
                     Description = "Bilgisayar yazıları",
-                    ParentId = teknolojiId,
+                    CategoryId = teknolojiId,
                 },
-                new Category
+                new SubCategory
                 {
                     Id = telefonId,
                     CreateDate = DateTime.UtcNow,
@@ -156,54 +110,10 @@ namespace Okusana.Infrasructure.Extensions
                     IsDeleted = false,
                     Name = "Laptop",
                     Description = "Laptop yazıları",
-                    ParentId = teknolojiId,
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Ekran kartı",
-                    Description = "Ekran kartı yazıları",
-                    ParentId = bilgisayarId,
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "İşlemci",
-                    Description = "İşlemci yazıları",
-                    ParentId = bilgisayarId,
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Amiral gemisi telefon",
-                    Description = "Amiral gemisi telefon yazıları",
-                    ParentId = telefonId,
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    CreateDate = DateTime.UtcNow,
-                    UpdateDate = null,
-                    DeleteDate = null,
-                    IsDeleted = false,
-                    Name = "Orta segment telefon",
-                    Description = "Orta segment telefon yazıları",
-                    ParentId = telefonId,
+                    CategoryId = teknolojiId,
                 }
-            #endregion
             );
+
             builder.Entity<User>().HasData
             (
             #region Üyeler
@@ -361,7 +271,7 @@ namespace Okusana.Infrasructure.Extensions
                     PublicationDate = null,
                     IsPublished = true,
                     UserId = user1,
-                    CategoryId = amatorlig,
+                    SubCategoryId = amatorlig                    
                 },
                 new Blog
                 {
@@ -375,7 +285,7 @@ namespace Okusana.Infrasructure.Extensions
                     PublicationDate = null,
                     IsPublished = true,
                     UserId = user2,
-                    CategoryId = superlig,
+                    SubCategoryId = superlig
                 },
                 new Blog
                 {
@@ -389,7 +299,7 @@ namespace Okusana.Infrasructure.Extensions
                     PublicationDate = null,
                     IsPublished = true,
                     UserId = user1,
-                    CategoryId = basketbolId,
+                    SubCategoryId = basketbolId
                 }
                 #endregion
             );

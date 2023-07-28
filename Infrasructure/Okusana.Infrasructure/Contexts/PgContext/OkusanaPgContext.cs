@@ -13,6 +13,7 @@ namespace Okusana.Infrasructure.Contexts.PgContext
         virtual public DbSet<Entity> Entities { get; set; }
         virtual public DbSet<Blog> Blogs { get; set; }
         virtual public DbSet<Category> Categories { get; set; }
+        virtual public DbSet<SubCategory> SubCategories { get; set; }
         virtual public DbSet<Comment> Comments { get; set; }
         virtual public DbSet<HashTag> HashTags { get; set; }
         virtual public DbSet<User> Users { get; set; }
@@ -26,7 +27,7 @@ namespace Okusana.Infrasructure.Contexts.PgContext
         {
             modelBuilder.UseTurkishPostgreSql();
             modelBuilder.GetAllConfigsAuto();
-            modelBuilder.Seeding();
+            //modelBuilder.Seeding(); //hata veriyor çözemedim sinirlenmemek için saldım.
             base.OnModelCreating(modelBuilder);
         }
     }
