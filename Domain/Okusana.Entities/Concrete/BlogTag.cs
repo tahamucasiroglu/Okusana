@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Okusana.Entities.Concrete
 {
-    public class BlogTag
+    public class BlogTag // hareket tablosu
     {
         public Guid BlogId { get; set; }
         public Guid TagId { get; set; }

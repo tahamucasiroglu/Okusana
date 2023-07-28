@@ -10,8 +10,8 @@ namespace Okusana.Entities.Concrete
         public string Content { get; set; } = null!;
         public DateTime? PublicationDate { get; set; }
         public bool IsPublished { get; set; }
-        public virtual User User { get; set; } = null!;
-        public virtual SubCategory SubCategory { get; set; } = null!;
+        virtual public User User { get; set; } = null!;
+        virtual public SubCategory SubCategory { get; set; } = null!;
         virtual public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         virtual public ICollection<BlogTag> BlogTags { get; set; } = new List<BlogTag>();
 
