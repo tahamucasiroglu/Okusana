@@ -1,10 +1,61 @@
 ﻿using Okusana.Entities.Abstract;
+using Okusana.Extensions;
 using Okusana.Returns.Abstract;
 using System.Linq.Expressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Okusana.Abstract.Repository.Base
 {
-    public interface IRepository<T> where T : class, IEntity, new()
+
+    public interface IRepository<T> : IRepositoryCore<T> 
+        where T : class, IEntity, new()
+    {
+
+        public IReturnModel<T> GetDeleted(Expression<Func<T, bool>> filter);
+        public Task<IReturnModel<T>> GetDeletedAsync(Expression<Func<T, bool>> filter);
+
+        public IReturnModel<IEnumerable<T>> _GetAllDeleted<TOrder>(Expression<Func<T, bool>>? filter = null, Expression<Func<T, TOrder>>? order = null, bool Reserve = false, Range? TakeRange = null);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted() => _GetAllDeleted<T>();
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(Range TakeRange) => _GetAllDeleted<T>(TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(bool Reserve) => _GetAllDeleted<T>(Reserve: Reserve);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(bool Reserve, Range TakeRange) => _GetAllDeleted<T>(Reserve: Reserve, TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, TOrder>> order) => _GetAllDeleted<TOrder>(order: order);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, TOrder>> order, Range TakeRange) => _GetAllDeleted<TOrder>(order: order, TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, TOrder>> order, bool Reserve) => _GetAllDeleted<TOrder>(order: order, Reserve: Reserve);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, TOrder>> order, bool Reserve, Range TakeRange) => _GetAllDeleted<TOrder>(order: order, Reserve: Reserve, TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(Expression<Func<T, bool>> filter) => _GetAllDeleted<T>(filter: filter);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(Expression<Func<T, bool>> filter, Range TakeRange) => _GetAllDeleted<T>(filter: filter, TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(Expression<Func<T, bool>> filter, bool Reserve) => _GetAllDeleted<T>(filter: filter, Reserve: Reserve);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted(Expression<Func<T, bool>> filter, bool Reserve, Range TakeRange) => _GetAllDeleted<T>(filter: filter, Reserve: Reserve, TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order) => _GetAllDeleted<TOrder>(filter: filter, order: order);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, Range TakeRange) => _GetAllDeleted<TOrder>(filter: filter, order: order, TakeRange: TakeRange);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve) => _GetAllDeleted<TOrder>(filter: filter, order: order, Reserve: Reserve);
+        public IReturnModel<IEnumerable<T>> GetAllDeleted<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve, Range TakeRange) => _GetAllDeleted<TOrder>(filter: filter, order: order, Reserve: Reserve, TakeRange: TakeRange);
+
+
+        public Task<IReturnModel<IEnumerable<T>>> _GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>>? filter = null, Expression<Func<T, TOrder>>? order = null, bool Reserve = false, Range? TakeRange = null);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync() => await _GetAllDeletedAsync<T>();
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(Range TakeRange) => await _GetAllDeletedAsync<T>(TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(bool Reserve) => await _GetAllDeletedAsync<T>(Reserve: Reserve);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(bool Reserve, Range TakeRange) => await _GetAllDeletedAsync<T>(Reserve: Reserve, TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, TOrder>> order) => await _GetAllDeletedAsync<TOrder>(order: order);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, TOrder>> order, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(order: order, TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, TOrder>> order, bool Reserve) => await _GetAllDeletedAsync<TOrder>(order: order, Reserve: Reserve);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, TOrder>> order, bool Reserve, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(order: order, Reserve: Reserve, TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(Expression<Func<T, bool>> filter) => await _GetAllDeletedAsync<T>(filter: filter);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(Expression<Func<T, bool>> filter, Range TakeRange) => await _GetAllDeletedAsync<T>(filter: filter, TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(Expression<Func<T, bool>> filter, bool Reserve) => await _GetAllDeletedAsync<T>(filter: filter, Reserve: Reserve);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync(Expression<Func<T, bool>> filter, bool Reserve, Range TakeRange) => await _GetAllDeletedAsync<T>(filter: filter, Reserve: Reserve, TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, TakeRange: TakeRange);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, Reserve: Reserve);
+        public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, Reserve: Reserve, TakeRange: TakeRange);
+    }
+
+
+
+
+    public interface IRepositoryCore<T> where T : class, IEntityCore, new()
     {
         public IReturnModel<T> Get(Expression<Func<T, bool>> filter);
         public Task<IReturnModel<T>> GetAsync(Expression<Func<T, bool>> filter);

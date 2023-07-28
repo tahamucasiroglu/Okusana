@@ -2,8 +2,8 @@
 {
     static public class UserStatusConstant
     {
-        static public string Admin = nameof(Admin);
-        static public string Editor = nameof(Editor);
-        static public string Member = nameof(Member);
+        static public readonly string Admin = nameof(Admin);
+        static public readonly string Editor = nameof(Editor);
+        static public readonly string Member = nameof(Member);
     }
 }

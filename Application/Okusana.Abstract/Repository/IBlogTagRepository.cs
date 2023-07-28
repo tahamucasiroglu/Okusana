@@ -3,7 +3,7 @@ using Okusana.Entities.Concrete;
 
 namespace Okusana.Abstract.Repository
 {
-    public interface IBlogTagRepository : IRepository<BlogTag>
+    public interface IBlogTagRepository : IRepositoryCore<BlogTag>
     {
     }
 }

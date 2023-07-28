@@ -1,7 +1,7 @@
 ﻿
 namespace Okusana.Entities.Abstract
 {
-    public interface IEntity
+    public interface IEntity : IEntityCore
     {
         public Guid Id { get; set; }
         public DateTime CreateDate { get; set; }
@@ -9,4 +9,6 @@ namespace Okusana.Entities.Abstract
         public DateTime? DeleteDate { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+
 }
