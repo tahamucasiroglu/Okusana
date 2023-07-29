@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Okusana.Constants.DbSettingConstants;
+using Okusana.Constants;
 using Okusana.Entities.Base;
 using Okusana.Entities.Concrete;
 
@@ -18,14 +18,14 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
             entity.Property(e => e.Name)
-               .IsRequired(CategoryDbSettingsConstant.CategoryNameRequired)
-               .HasMaxLength(CategoryDbSettingsConstant.CategoryNameLength)
+               .IsRequired(DbSettings.Category.Name.Required)
+               .HasMaxLength(DbSettings.Category.Name.Length)
                .IsUnicode(false)
                .HasComment("kategori adlari");
 
             entity.Property(e => e.Description)
-               .IsRequired(CategoryDbSettingsConstant.CategoryDescriptionRequired)
-               .HasMaxLength(CategoryDbSettingsConstant.CategoryDescriptionLength)
+               .IsRequired(DbSettings.Category.Description.Required)
+               .HasMaxLength(DbSettings.Category.Description.Length)
                .IsUnicode(false)
                .HasComment("category aciklamasi");
         }

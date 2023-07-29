@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Okusana.Entities.Concrete;
 using Okusana.Entities.Base;
+using Okusana.Constants;
 
 namespace Okusana.Infrasructure.Contexts.PgContext.Configs
 {
@@ -17,8 +18,8 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
             entity.Property(e => e.Name)
-                .IsRequired(true)
-                .HasMaxLength(50)
+                .IsRequired(DbSettings.HashTag.Name.Required)
+                .HasMaxLength(DbSettings.HashTag.Name.Length)
                 .IsUnicode(false)
                 .HasComment("etiket ismi");
         }

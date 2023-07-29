@@ -132,7 +132,7 @@ namespace Okusana.Infrasructure.Extensions
                 BirthDate = DateTime.UtcNow.AddYears(-20),
                 Gender = false,
                 Password = "123456".ToSha256(),
-                Status = UserStatusConstant.Admin,
+                Status = UserStatus.Admin,
             },
                 new User
                 {
@@ -149,7 +149,7 @@ namespace Okusana.Infrasructure.Extensions
                     BirthDate = DateTime.UtcNow.AddYears(-30),
                     Gender = false,
                     Password = "123456".ToSha256(),
-                    Status = UserStatusConstant.Editor,
+                    Status = UserStatus.Editor,
                 },
                 new User
                 {
@@ -166,7 +166,7 @@ namespace Okusana.Infrasructure.Extensions
                     BirthDate = DateTime.UtcNow.AddYears(-40),
                     Gender = false,
                     Password = "123456".ToSha256(),
-                    Status = UserStatusConstant.Member,
+                    Status = UserStatus.Member,
                 }
                 #endregion
             );

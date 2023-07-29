@@ -2,7 +2,7 @@
 using Okusana.DTOs.Concrete.Category;
 using Okusana.Validation.Extensions;
 
-namespace Okusana.Validation.CategoryValidation
+namespace Okusana.Validation.Validations.CategoryValidation
 {
     public class DeleteCategoryDTOValidation : AbstractValidator<DeleteCategoryDTO>
     {

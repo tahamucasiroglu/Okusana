@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Okusana.Entities.Concrete;
 using Okusana.Entities.Base;
+using Okusana.Constants;
 
 namespace Okusana.Infrasructure.Contexts.PgContext.Configs
 {
@@ -17,18 +18,18 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
             entity.Property(e => e.Content)
-                .IsRequired(true)
+                .IsRequired(DbSettings.Comment.Content.Required)
                 .HasColumnType("text")
-                .HasMaxLength(250)
+                .HasMaxLength(DbSettings.Comment.Content.Length)
                 .IsUnicode(false)
                 .HasComment("kullanıcı yorum yazısı");
 
             entity.Property(e => e.Rate)
-                .IsRequired(false)
+                .IsRequired(DbSettings.Comment.Rate.Required)
                 .HasComment("kullanıcı puan değeri 5 üzerinden olur bir değişiklik olmazsa");
 
             entity.Property(e => e.IsLike)
-                .IsRequired(true)
+                .IsRequired(DbSettings.Comment.IsLike.Required)
                 .HasComment("kullanıcı beğenme durumu");
 
             entity.HasOne(e => e.Blog).WithMany(e => e.Comments)

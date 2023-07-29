@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Okusana.Entities.Base;
+using Okusana.Constants;
 
 namespace Okusana.Infrasructure.Contexts.PgContext.Configs
 {
@@ -19,14 +20,14 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             entity.HasIndex(e => new { e.Name });
 
             entity.Property(e => e.Name)
-               .IsRequired(true)
-               .HasMaxLength(50)
+               .IsRequired(DbSettings.SubCategory.Name.Required)
+               .HasMaxLength(DbSettings.SubCategory.Name.Length)
                .IsUnicode(false)
                .HasComment("SubCategory adlari");
 
             entity.Property(e => e.Description)
-              .IsRequired(false)
-              .HasMaxLength(150)
+              .IsRequired(DbSettings.SubCategory.Describtion.Required)
+              .HasMaxLength(DbSettings.SubCategory.Describtion.Length)
               .IsUnicode(false)
               .HasComment("category aciklamasi");
 

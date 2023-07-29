@@ -1,6 +1,6 @@
 ﻿namespace Okusana.Constants
 {
-    static public class UserStatusConstant
+    static public class UserStatus
     {
         static public readonly string Admin = nameof(Admin);
         static public readonly string Editor = nameof(Editor);
