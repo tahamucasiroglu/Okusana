@@ -50,6 +50,12 @@ namespace Okusana.Abstract.Repository.Base
         public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, TakeRange: TakeRange);
         public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, Reserve: Reserve);
         public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, Reserve: Reserve, TakeRange: TakeRange);
+
+        public new IReturnModel<T> Delete(T entity);
+        public new IReturnModel<IEnumerable<T>> Delete(IEnumerable<T> entity);
+        public new Task<IReturnModel<T>> DeleteAsync(T entity);
+        public new Task<IReturnModel<IEnumerable<T>>> DeleteAsync(IEnumerable<T> entity);
+
     }
 
 
@@ -120,5 +126,11 @@ namespace Okusana.Abstract.Repository.Base
         public Task<IReturnModel<T>> DeleteAsync(T entity);
         public Task<IReturnModel<IEnumerable<T>>> DeleteAsync(IEnumerable<T> entity);
 
+        public IReturnModel<T> Save(T entity);
+        public IReturnModel<IEnumerable<T>> Save(IEnumerable<T> entity);
+        public Task<IReturnModel<T>> SaveAsync(T entity);
+        public Task<IReturnModel<IEnumerable<T>>> SaveAsync(IEnumerable<T> entity);
+
+        public IReturnModel<TNull> CheckIsNull<TNull>(TNull? result);
     }
 }

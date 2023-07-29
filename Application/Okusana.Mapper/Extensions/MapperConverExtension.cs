@@ -29,6 +29,16 @@ namespace Okusana.Mapper.Extensions
             => mapper.Map<T>(entity);
         #endregion
 
+        #region Guid To entity
+        public static IEnumerable<T> ConvertToEntityCustom<T>(this IEnumerable<Guid> entity, IMapper mapper)
+            where T : class, IEntity
+            => mapper.Map<IEnumerable<T>>(entity);
+
+        public static T ConvertToEntityCustom<T>(this Guid entity, IMapper mapper)
+            where T : class, IEntity
+            => mapper.Map<T>(entity);
+        #endregion
+
         #region Generic general convert methods
         public static IEnumerable<T> ConvertToEntityCustom<T>(this IEnumerable<IDTO> entity, IMapper mapper)
             where T : class, IEntity =>
@@ -172,6 +182,7 @@ namespace Okusana.Mapper.Extensions
         => ConvertToDto<GetUserDTO>(entity, mapper);
 
         #endregion
+
 
 
 
