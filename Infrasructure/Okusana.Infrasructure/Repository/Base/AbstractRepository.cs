@@ -5,15 +5,14 @@ using Okusana.Extensions;
 using Okusana.Returns.Abstract;
 using Okusana.Returns.Concrete;
 using System.Linq.Expressions;
-using System.Xml.Linq;
 
 namespace Okusana.Infrasructure.Repository.Base
 {
-    abstract public class Repository<TEntity, TContext> : RepositoryCore<TEntity, TContext>, IRepository<TEntity>
+    abstract public class AbstractRepository<TEntity, TContext> : AbstractRepositoryCore<TEntity, TContext>, IRepository<TEntity>
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
-        public Repository(TContext context) : base(context)
+        public AbstractRepository(TContext context) : base(context)
         {
         }
 
@@ -79,12 +78,12 @@ namespace Okusana.Infrasructure.Repository.Base
             return await Task.FromResult(new SuccessReturnModel<IEnumerable<TEntity>>("Başarıyla Getirildi", result));
         }
     }
-    abstract public class RepositoryCore<TEntityCore, TContext> : IRepositoryCore<TEntityCore>
+    abstract public class AbstractRepositoryCore<TEntityCore, TContext> : IRepositoryCore<TEntityCore>
         where TEntityCore : class, IEntityCore, new()
         where TContext : DbContext, new()
     {
         internal readonly TContext context;
-        public RepositoryCore(TContext context)
+        public AbstractRepositoryCore(TContext context)
         {
             this.context = context;
         }

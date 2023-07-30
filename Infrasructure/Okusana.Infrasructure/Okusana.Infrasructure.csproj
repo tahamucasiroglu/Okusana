@@ -24,8 +24,4 @@
     <ProjectReference Include="..\..\Application\Okusana.Validation\Okusana.Validation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\EfCore\" />
-  </ItemGroup>
-
 </Project>
