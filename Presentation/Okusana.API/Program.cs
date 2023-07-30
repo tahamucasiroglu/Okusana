@@ -1,4 +1,10 @@
+using Okusana.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.AddDb();
+builder.AddDependencyInjections();
+builder.AddScoped();
+builder.AddSingleton();
 
 // Add services to the container.
 

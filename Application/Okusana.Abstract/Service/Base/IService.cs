@@ -45,9 +45,9 @@ namespace Okusana.Abstract.Service.Base
     }
     public interface _IServiceDelete<Response>
     {
-        public IReturnModel<Response> Delete(int entity);
-        public IReturnModel<IEnumerable<Response>> Delete(IEnumerable<int> entity);
-        public Task<IReturnModel<Response>> DeleteAsync(int entity);
-        public Task<IReturnModel<IEnumerable<Response>>> DeleteAsync(IEnumerable<int> entity);
+        public IReturnModel<Response> Delete(Guid entity);
+        public IReturnModel<IEnumerable<Response>> Delete(IEnumerable<Guid> entity);
+        public Task<IReturnModel<Response>> DeleteAsync(Guid entity);
+        public Task<IReturnModel<IEnumerable<Response>>> DeleteAsync(IEnumerable<Guid> entity);
     }
 }

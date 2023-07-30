@@ -16,34 +16,6 @@ namespace Okusana.Infrasructure.Repository.Base
         {
         }
 
-        IReturnModel<TEntity> IRepository<TEntity>.Delete(TEntity entity)
-        {
-            if (entity.IsDeleted) return new ErrorReturnModel<TEntity>("Silinen veri silinmeye çalışılıyor bir sorun var");
-            entity.IsDeleted = true;
-            return Update(entity);
-        }
-
-        IReturnModel<IEnumerable<TEntity>> IRepository<TEntity>.Delete(IEnumerable<TEntity> entity)
-        {
-            if (entity.Any(e => e.IsDeleted)) return new ErrorReturnModel<IEnumerable<TEntity>>("Silinmek istenen verilerden en az biri zaten silinik bir sorun var");
-            entity.ChangeAll(e => e.IsDeleted = true);
-            return Update(entity);
-        }
-
-        async Task<IReturnModel<TEntity>> IRepository<TEntity>.DeleteAsync(TEntity entity)
-        {
-            if (entity.IsDeleted) return new ErrorReturnModel<TEntity>("Silinen veri silinmeye çalışılıyor bir sorun var");
-            entity.IsDeleted = true;
-            return await UpdateAsync(entity);
-        }
-
-        async Task<IReturnModel<IEnumerable<TEntity>>> IRepository<TEntity>.DeleteAsync(IEnumerable<TEntity> entity)
-        {
-            if (entity.Any(e => e.IsDeleted)) return new ErrorReturnModel<IEnumerable<TEntity>> ("Silinmek istenen verilerden en az biri zaten silinik bir sorun var");
-            entity.ChangeAll(e => e.IsDeleted = true);
-            return await UpdateAsync(entity);
-        }
-
         public IReturnModel<TEntity> GetDeleted(Expression<Func<TEntity, bool>> filter)
         {
             var result = context.Set<TEntity>().IgnoreQueryFilters().AsNoTracking().FirstOrDefault(filter);

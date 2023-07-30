@@ -1,6 +1,6 @@
 ﻿namespace Okusana.Constants
 {
-    static public class DbSettings
+    static public class DbSettings //partial yapabilirsin sonra ama kısa gerekte yok gibi gerçi uzarda ilerde bakarsın
     {
         static public readonly string NonGuidMessage = "Id tipi Uyumsuz";
         static public class Blog

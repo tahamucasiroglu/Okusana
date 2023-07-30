@@ -6,6 +6,7 @@ using Okusana.Entities.Abstract;
 using Okusana.Returns.Abstract;
 using Okusana.Returns.Concrete;
 using Okusana.Mapper.Extensions;
+using Okusana.Extensions;
 
 namespace Okusana.DbService.Base
 {
@@ -117,28 +118,64 @@ namespace Okusana.DbService.Base
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual IReturnModel<Response> Delete(int entity)
+        public virtual IReturnModel<Response> Delete(Guid entity)
         {
-            IReturnModel<TEntity> result = repository.Delete(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            IReturnModel<TEntity> result = repository.Get(e => e.Id == entity);
+            if(result.Status && result.Data != null) 
+            {
+                TEntity data = result.Data;
+                data.IsDeleted = true;
+                return ConvertToReturn<Response, TEntity>(repository.Update(data), mapper);
+            }
+            else
+            {
+                return new ErrorReturnModel<Response>();
+            }
         }
 
-        public virtual IReturnModel<IEnumerable<Response>> Delete(IEnumerable<int> entity)
+        public virtual IReturnModel<IEnumerable<Response>> Delete(IEnumerable<Guid> entity)
         {
-            IReturnModel<IEnumerable<TEntity>> result = repository.Delete(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            IReturnModel<IEnumerable<TEntity>> result = repository.GetAll(e => entity.Any(x => x == e.Id));
+            if (result.Status && result.Data != null)
+            {
+                IEnumerable<TEntity> data = result.Data;
+                data = data.ChangeAll(e => e.IsDeleted = true);
+                return ConvertToReturn<Response, TEntity>(repository.Update(data), mapper);
+            }
+            else
+            {
+                return new ErrorReturnModel<IEnumerable<Response>>();
+            }
         }
 
-        public virtual async Task<IReturnModel<Response>> DeleteAsync(int entity)
+        public virtual async Task<IReturnModel<Response>> DeleteAsync(Guid entity)
         {
-            IReturnModel<TEntity> result = await repository.DeleteAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            IReturnModel<TEntity> result = await repository.GetAsync(e => e.Id == entity);
+            if (result.Status && result.Data != null)
+            {
+                TEntity data = result.Data;
+                data.IsDeleted = true;
+                return ConvertToReturn<Response, TEntity>(await repository.UpdateAsync(data), mapper);
+            }
+            else
+            {
+                return new ErrorReturnModel<Response>();
+            }
         }
 
-        public virtual async Task<IReturnModel<IEnumerable<Response>>> DeleteAsync(IEnumerable<int> entity)
+        public virtual async Task<IReturnModel<IEnumerable<Response>>> DeleteAsync(IEnumerable<Guid> entity)
         {
-            IReturnModel<IEnumerable<TEntity>> result = await repository.DeleteAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            IReturnModel<IEnumerable<TEntity>> result = await repository.GetAllAsync(e => entity.Any(x => x == e.Id));
+            if (result.Status && result.Data != null)
+            {
+                IEnumerable<TEntity> data = result.Data;
+                data = data.ChangeAll(e => e.IsDeleted = true);
+                return ConvertToReturn<Response, TEntity>(await repository.UpdateAsync(data), mapper);
+            }
+            else
+            {
+                return new ErrorReturnModel<IEnumerable<Response>>();
+            }
         }
     }
 

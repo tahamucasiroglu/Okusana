@@ -2,6 +2,7 @@
 using Okusana.Entities.Base;
 using Okusana.Entities.Concrete;
 using Okusana.Infrasructure.Extensions;
+using System.Reflection;
 
 namespace Okusana.Infrasructure.Contexts.PgContext
 {
@@ -18,10 +19,10 @@ namespace Okusana.Infrasructure.Contexts.PgContext
         virtual public DbSet<HashTag> HashTags { get; set; }
         virtual public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder
-            //.UseNpgsql("Server=127.0.0.1;Port=5432;Database=OkusnaPgDb;User Id=postgres;Password=123456;")
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //=> optionsBuilder
+        //    .UseNpgsql("Server=127.0.0.1;Port=5432;Database=OkusnaPgDb;User Id=postgres;Password=123456;")
+        //    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

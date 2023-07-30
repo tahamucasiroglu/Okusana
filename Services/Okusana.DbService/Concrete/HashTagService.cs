@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Okusana.Abstract.Repository;
+using Okusana.Abstract.Service;
 using Okusana.DbService.Base;
 using Okusana.DTOs.Concrete.HashTag;
 using Okusana.Entities.Concrete;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Okusana.DbService.Concrete
 {
-    public class HashTagService : AbstractService<HashTag, GetHashTagDTO, AddHashTagDTO, UpdateHashTagDTO>
+    public class HashTagService : AbstractService<HashTag, GetHashTagDTO, AddHashTagDTO, UpdateHashTagDTO>, IHashTagService
     {
         public HashTagService(IHashTagRepository repository, IMapper mapper) : base(repository, mapper) { }
     }

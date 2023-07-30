@@ -6,8 +6,8 @@ using Okusana.Infrasructure.Repository.Base;
 
 namespace Okusana.Infrasructure.Repository.EfCore
 {
-    public class EfBlogRepositort : AbstractRepository<Blog, OkusanaPgContext>, IBlogRepository
+    public class EfBlogRepository : AbstractRepository<Blog, OkusanaPgContext>, IBlogRepository
     {
-        public EfBlogRepositort(OkusanaPgContext context) : base(context) { }
+        public EfBlogRepository(OkusanaPgContext context) : base(context) { }
     }
 }

@@ -10,7 +10,6 @@ namespace Okusana.Abstract.Repository.Base
     public interface IRepository<T> : IRepositoryCore<T> 
         where T : class, IEntity, new()
     {
-
         public IReturnModel<T> GetDeleted(Expression<Func<T, bool>> filter);
         public Task<IReturnModel<T>> GetDeletedAsync(Expression<Func<T, bool>> filter);
 
@@ -50,11 +49,6 @@ namespace Okusana.Abstract.Repository.Base
         public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, TakeRange: TakeRange);
         public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, Reserve: Reserve);
         public async Task<IReturnModel<IEnumerable<T>>> GetAllDeletedAsync<TOrder>(Expression<Func<T, bool>> filter, Expression<Func<T, TOrder>> order, bool Reserve, Range TakeRange) => await _GetAllDeletedAsync<TOrder>(filter: filter, order: order, Reserve: Reserve, TakeRange: TakeRange);
-
-        public new IReturnModel<T> Delete(T entity);
-        public new IReturnModel<IEnumerable<T>> Delete(IEnumerable<T> entity);
-        public new Task<IReturnModel<T>> DeleteAsync(T entity);
-        public new Task<IReturnModel<IEnumerable<T>>> DeleteAsync(IEnumerable<T> entity);
 
     }
 
