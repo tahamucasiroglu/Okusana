@@ -34,6 +34,10 @@
 * db de userid gibi þeyleri ef kendi ayarlýyor onlarý ilerde kaldýr þimdi karýþacak kalsýn
 * yorumlarýda recursive yap yoruma yorum yapsýnlar
 * bazý yerlerde view eklebilir
+* BlogTag için ol ara sistemde Core lar ile çalýþýlmasý lazým bakýn
+* servislere sonradan mail servisi eklemeyi dene
+
 
 ### sorulacaklar
 * validationdaki Isrequired içindeki isrequired durmalý mý amacý config te require true dan false olursa exception fýrlatýp hatýrlatmak
+* abstractservice ve abstractrepositorylerdeki parçalamalar mantýklý mý 

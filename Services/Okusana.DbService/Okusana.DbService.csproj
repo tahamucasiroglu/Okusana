@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrasructure\Okusana.Infrasructure\Okusana.Infrasructure.csproj" />
+  </ItemGroup>
+
 </Project>
