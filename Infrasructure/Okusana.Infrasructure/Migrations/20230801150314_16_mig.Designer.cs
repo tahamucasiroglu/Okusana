@@ -12,16 +12,17 @@ using Okusana.Infrasructure.Contexts.PgContext;
 namespace Okusana.Infrasructure.Migrations
 {
     [DbContext(typeof(OkusanaPgContext))]
-    [Migration("20230727094323_13_mig_no_seed")]
-    partial class _13_mig_no_seed
+    [Migration("20230801150314_16_mig")]
+    partial class _16_mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Okusana")
                 .UseCollation("Turkish_Turkey.1254")
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -51,21 +52,6 @@ namespace Okusana.Infrasructure.Migrations
                     b.ToTable((string)null);
 
                     b.UseTpcMappingStrategy();
-                });
-
-            modelBuilder.Entity("Okusana.Entities.Concrete.BlogTag", b =>
-                {
-                    b.Property<Guid>("TagId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BlogId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("TagId", "BlogId");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogTag");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.Blog", b =>
@@ -105,7 +91,24 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("Title", "IsPublished", "CreateDate", "IsDeleted");
 
-                    b.ToTable("Blogs", (string)null);
+                    b.ToTable("Blogs", "Okusana");
+                });
+
+            modelBuilder.Entity("Okusana.Entities.Concrete.BlogTag", b =>
+                {
+                    b.HasBaseType("Okusana.Entities.Base.Entity");
+
+                    b.Property<Guid>("BlogId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("TagId", "BlogId");
+
+                    b.ToTable("BlogTags", "Okusana");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.Category", b =>
@@ -127,7 +130,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories", "Okusana");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.Comment", b =>
@@ -161,7 +164,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("Rate", "IsLike", "CreateDate", "IsDeleted");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments", "Okusana");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.HashTag", b =>
@@ -177,7 +180,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("Name", "CreateDate", "IsDeleted");
 
-                    b.ToTable("HashTags", (string)null);
+                    b.ToTable("HashTags", "Okusana");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.SubCategory", b =>
@@ -204,7 +207,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("Name");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories", "Okusana");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.User", b =>
@@ -268,28 +271,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("Id", "Email", "CreateDate", "IsDeleted");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Okusana.Entities.Concrete.BlogTag", b =>
-                {
-                    b.HasOne("Okusana.Entities.Concrete.Blog", "Blog")
-                        .WithMany("BlogTags")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_BlogTag_Blog");
-
-                    b.HasOne("Okusana.Entities.Concrete.HashTag", "HashTag")
-                        .WithMany("BlogTags")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_BlogTag_HashTag");
-
-                    b.Navigation("Blog");
-
-                    b.Navigation("HashTag");
+                    b.ToTable("Users", "Okusana");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.Blog", b =>
@@ -311,6 +293,27 @@ namespace Okusana.Infrasructure.Migrations
                     b.Navigation("SubCategory");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Okusana.Entities.Concrete.BlogTag", b =>
+                {
+                    b.HasOne("Okusana.Entities.Concrete.Blog", "Blog")
+                        .WithMany("BlogTags")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_BlogTag_Blog");
+
+                    b.HasOne("Okusana.Entities.Concrete.HashTag", "HashTag")
+                        .WithMany("BlogTags")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_BlogTag_HashTag");
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("HashTag");
                 });
 
             modelBuilder.Entity("Okusana.Entities.Concrete.Comment", b =>

@@ -23,6 +23,12 @@
             static public class IsPublished { public const bool Required = true; }
         }
 
+        static public class BlogTag
+        {
+            static public class BlogId { public const bool Required = true; }
+            static public class HashTagId { public const bool Required = true; }
+        }
+
         static public class Category
         {
             static public class Name

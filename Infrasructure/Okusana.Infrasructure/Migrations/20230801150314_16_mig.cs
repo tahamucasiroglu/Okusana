@@ -6,13 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Okusana.Infrasructure.Migrations
 {
     /// <inheritdoc />
-    public partial class _13_mig_no_seed : Migration
+    public partial class _16_mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Okusana");
+
             migrationBuilder.CreateTable(
                 name: "Categories",
+                schema: "Okusana",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -30,6 +34,7 @@ namespace Okusana.Infrasructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "HashTags",
+                schema: "Okusana",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -46,6 +51,7 @@ namespace Okusana.Infrasructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
+                schema: "Okusana",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -70,6 +76,7 @@ namespace Okusana.Infrasructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "SubCategories",
+                schema: "Okusana",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -87,12 +94,14 @@ namespace Okusana.Infrasructure.Migrations
                     table.ForeignKey(
                         name: "FK_SubCategory_Category",
                         column: x => x.CategoryId,
+                        principalSchema: "Okusana",
                         principalTable: "Categories",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Blogs",
+                schema: "Okusana",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -113,34 +122,44 @@ namespace Okusana.Infrasructure.Migrations
                     table.ForeignKey(
                         name: "FK_Blog_SubCategories",
                         column: x => x.SubCategoryId,
+                        principalSchema: "Okusana",
                         principalTable: "SubCategories",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Blog_User",
                         column: x => x.UserId,
+                        principalSchema: "Okusana",
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "BlogTag",
+                name: "BlogTags",
+                schema: "Okusana",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeleteDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     BlogId = table.Column<Guid>(type: "uuid", nullable: false),
                     TagId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BlogTag", x => new { x.TagId, x.BlogId });
+                    table.PrimaryKey("PK_BlogTags", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BlogTag_Blog",
                         column: x => x.BlogId,
+                        principalSchema: "Okusana",
                         principalTable: "Blogs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BlogTag_HashTag",
                         column: x => x.BlogId,
+                        principalSchema: "Okusana",
                         principalTable: "HashTags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -148,6 +167,7 @@ namespace Okusana.Infrasructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Comments",
+                schema: "Okusana",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -167,72 +187,92 @@ namespace Okusana.Infrasructure.Migrations
                     table.ForeignKey(
                         name: "FK_Comment_Blog",
                         column: x => x.BlogId,
+                        principalSchema: "Okusana",
                         principalTable: "Blogs",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Comment_User",
                         column: x => x.UserId,
+                        principalSchema: "Okusana",
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_SubCategoryId",
+                schema: "Okusana",
                 table: "Blogs",
                 column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_Title_IsPublished_CreateDate_IsDeleted",
+                schema: "Okusana",
                 table: "Blogs",
                 columns: new[] { "Title", "IsPublished", "CreateDate", "IsDeleted" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_UserId",
+                schema: "Okusana",
                 table: "Blogs",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlogTag_BlogId",
-                table: "BlogTag",
+                name: "IX_BlogTags_BlogId",
+                schema: "Okusana",
+                table: "BlogTags",
                 column: "BlogId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BlogTags_TagId_BlogId",
+                schema: "Okusana",
+                table: "BlogTags",
+                columns: new[] { "TagId", "BlogId" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Categories_Name",
+                schema: "Okusana",
                 table: "Categories",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_BlogId",
+                schema: "Okusana",
                 table: "Comments",
                 column: "BlogId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_Rate_IsLike_CreateDate_IsDeleted",
+                schema: "Okusana",
                 table: "Comments",
                 columns: new[] { "Rate", "IsLike", "CreateDate", "IsDeleted" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
+                schema: "Okusana",
                 table: "Comments",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HashTags_Name_CreateDate_IsDeleted",
+                schema: "Okusana",
                 table: "HashTags",
                 columns: new[] { "Name", "CreateDate", "IsDeleted" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_CategoryId",
+                schema: "Okusana",
                 table: "SubCategories",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_Name",
+                schema: "Okusana",
                 table: "SubCategories",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Id_Email_CreateDate_IsDeleted",
+                schema: "Okusana",
                 table: "Users",
                 columns: new[] { "Id", "Email", "CreateDate", "IsDeleted" });
         }
@@ -241,25 +281,32 @@ namespace Okusana.Infrasructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BlogTag");
+                name: "BlogTags",
+                schema: "Okusana");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Comments",
+                schema: "Okusana");
 
             migrationBuilder.DropTable(
-                name: "HashTags");
+                name: "HashTags",
+                schema: "Okusana");
 
             migrationBuilder.DropTable(
-                name: "Blogs");
+                name: "Blogs",
+                schema: "Okusana");
 
             migrationBuilder.DropTable(
-                name: "SubCategories");
+                name: "SubCategories",
+                schema: "Okusana");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users",
+                schema: "Okusana");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Categories",
+                schema: "Okusana");
         }
     }
 }

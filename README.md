@@ -1,6 +1,7 @@
 # Proje Notlarý
 
 
+fluent validation attribute oluyor
 
 
 ### Notlar
