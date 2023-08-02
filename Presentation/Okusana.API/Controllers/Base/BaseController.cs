@@ -32,7 +32,7 @@ namespace Okusana.API.Controllers.Base
         {
             this.service = service;
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public IActionResult Add([FromBody] TAdd survey)
         {
             return new OkObjectResult(ModelState.IsValid ? service.Add(survey) : ModelState.ReturnError());
@@ -48,7 +48,7 @@ namespace Okusana.API.Controllers.Base
         {
             this.service = service;
         }
-        [HttpPut]
+        [HttpPut("[action]")]
         public IActionResult Update([FromBody] TUpdate survey)
         {
             return new OkObjectResult(ModelState.IsValid ? service.Update(survey) : ModelState.ReturnError());
@@ -62,7 +62,7 @@ namespace Okusana.API.Controllers.Base
     {
         public BaseController(IService<TGet, TAdd, TUpdate> service) : base(service) { }
 
-        [HttpDelete]
+        [HttpDelete("[action]")]
         public IActionResult Delete([FromBody] TDelete survey)
         {
             return new OkObjectResult(ModelState.IsValid ? service.Delete(survey.Id) : ModelState.ReturnError());

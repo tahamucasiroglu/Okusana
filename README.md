@@ -2,7 +2,9 @@
 
 
 fluent validation attribute oluyor
-
+servisler httpstatus dönecek
+üyelik eklenecek
+model stateleri attribute ile controllerlar içinde kontrol etmeyþi dene
 
 ### Notlar
 
