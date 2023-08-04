@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Okusana.Entities.Concrete;
 using Okusana.Infrasructure.Contexts.PgContext;
 
 namespace Okusana.API.Extensions
@@ -20,14 +21,29 @@ namespace Okusana.API.Extensions
             });
         }
 
-        static public void RestartDb(this IServiceProvider services)
+        static public void RestartDb(this WebApplication builder)
         {
-            using (var context = services.CreateScope().ServiceProvider.GetRequiredService<OkusanaPgContext>())
+            using (var context = builder.Services.CreateScope().ServiceProvider.GetRequiredService<OkusanaPgContext>())
             {
                 if (context.Database.CanConnect())
                 {
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
+                }
+            }
+        }
+
+        static public void AddDataToCategory(this WebApplication builder, int Count = 100)
+        {
+            using (var context = builder.Services.CreateScope().ServiceProvider.GetRequiredService<OkusanaPgContext>())
+            {
+                if (context.Database.CanConnect())
+                {
+                    for (int i = 0; i < Count; i++)
+                    {
+                        context.Add(new Category() { Id = Guid.NewGuid(), CreateDate = DateTime.UtcNow, Name = $"Category - {i}" });
+                    }
+                    context.SaveChanges();
                 }
             }
         }

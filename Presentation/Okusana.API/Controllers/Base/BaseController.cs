@@ -5,16 +5,15 @@ using Okusana.DTOs.Abstract;
 
 namespace Okusana.API.Controllers.Base
 {
-    public class BaseController : ControllerBase, IBaseController
+    abstract public class BaseController : ControllerBase
     {
         internal readonly IService service;
         public BaseController(IService service)
         {
             this.service = service;
         }
-
     }
-    public class BaseController<TGet> : BaseController
+    abstract public class BaseController<TGet> : BaseController, IBaseController
         where TGet : class, IGetDTO, new()
     {
         internal new readonly IService<TGet> service;
@@ -22,8 +21,13 @@ namespace Okusana.API.Controllers.Base
         {
             this.service= service;
         }
+        [HttpGet("[action]")]
+        public IActionResult GetAll()
+        {
+            return new OkObjectResult(service.GetAll());
+        }
     }
-    public class BaseController<TGet, TAdd> : BaseController<TGet>, IBaseController<TAdd>
+    abstract public class BaseController<TGet, TAdd> : BaseController<TGet>, IBaseController<TAdd>
         where TGet : class, IGetDTO, new()
         where TAdd : class, IAddDTO, new()
     {
@@ -38,7 +42,7 @@ namespace Okusana.API.Controllers.Base
             return new OkObjectResult(ModelState.IsValid ? service.Add(survey) : ModelState.ReturnError());
         }
     }
-    public class BaseController<TGet, TAdd, TUpdate> : BaseController<TGet, TAdd>, IBaseController<TAdd, TUpdate>
+    abstract public class BaseController<TGet, TAdd, TUpdate> : BaseController<TGet, TAdd>, IBaseController<TAdd, TUpdate>
         where TGet : class, IGetDTO, new()
         where TAdd : class, IAddDTO, new()
         where TUpdate : class, IUpdateDTO, new()
@@ -54,7 +58,7 @@ namespace Okusana.API.Controllers.Base
             return new OkObjectResult(ModelState.IsValid ? service.Update(survey) : ModelState.ReturnError());
         }
     }
-    public class BaseController<TGet, TAdd, TUpdate, TDelete> : BaseController<TGet, TAdd, TUpdate>, IBaseController<TAdd, TUpdate, TDelete>
+    abstract public class BaseController<TGet, TAdd, TUpdate, TDelete> : BaseController<TGet, TAdd, TUpdate>, IBaseController<TAdd, TUpdate, TDelete>
         where TGet : class, IGetDTO, new()
         where TAdd : class, IAddDTO, new()
         where TUpdate : class, IUpdateDTO, new()

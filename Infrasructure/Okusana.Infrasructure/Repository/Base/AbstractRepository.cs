@@ -84,7 +84,7 @@ namespace Okusana.Infrasructure.Repository.Base
         }
 
         public IReturnModel<TNull> CheckIsNull<TNull>(TNull? result) 
-            => (result == null) ? new ErrorReturnModel<TNull>() : new SuccessReturnModel<TNull>(result);
+            => (result == null) ? new SuccessReturnModel<TNull>("Data is null") : new SuccessReturnModel<TNull>("Data is not null", result);
 
         public IReturnModel<int> Count(Expression<Func<TEntityCore, bool>>? filter = null)
         {
@@ -260,24 +260,34 @@ namespace Okusana.Infrasructure.Repository.Base
 
         public IReturnModel<IEnumerable<TEntityCore>> _GetAll<TOrder>(Expression<Func<TEntityCore, bool>>? filter = null, Expression<Func<TEntityCore, TOrder>>? order = null, bool Reserve = false, Range? TakeRange = null)
         {
+            // burada bir sorun var take ile çalışmada sorun var birde range de eklemede sorun var
             IQueryable<TEntityCore> result = context.Set<TEntityCore>().AsNoTracking();
+            
             if (filter != null) result = result.Where(filter);
             if (order != null) result = result.OrderBy(order);
-            if (TakeRange != null) result = result.Take((Range)TakeRange);
             if (Reserve) result = result.Reverse();
-            return new SuccessReturnModel<IEnumerable<TEntityCore>>("Başarıyla Getirildi", result);
+            if (TakeRange != null)
+            {
+                return new SuccessReturnModel<IEnumerable<TEntityCore>>("Başarıyla Getirildi", result.ToList().Take(TakeRange.Value));
+            }
+           
+            return new SuccessReturnModel<IEnumerable<TEntityCore>>("Başarıyla Getirildi", result.ToList());
         }
 
         public async Task<IReturnModel<IEnumerable<TEntityCore>>> _GetAllAsync<TOrder>(Expression<Func<TEntityCore, bool>>? filter = null, Expression<Func<TEntityCore, TOrder>>? order = null, bool Reserve = false, Range? TakeRange = null)
         {
             //zoraki async
             IQueryable<TEntityCore> result = context.Set<TEntityCore>().AsNoTracking();
+
             if (filter != null) result = result.Where(filter);
             if (order != null) result = result.OrderBy(order);
-            if (TakeRange != null) result = result.Take((Range)TakeRange);
             if (Reserve) result = result.Reverse();
+            if (TakeRange != null)
+            {
+                return new SuccessReturnModel<IEnumerable<TEntityCore>>("Başarıyla Getirildi", result.ToList().Take(TakeRange.Value));
+            }
 
-            return await Task.FromResult(new SuccessReturnModel<IEnumerable<TEntityCore>>("Başarıyla Getirildi", result));
+            return new SuccessReturnModel<IEnumerable<TEntityCore>>("Başarıyla Getirildi", await result.ToListAsync());
         }
     }
 }

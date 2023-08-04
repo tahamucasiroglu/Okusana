@@ -5,7 +5,6 @@ builder.AddDb();
 builder.AddDependencyInjections();
 builder.AddScoped();
 builder.AddSingleton();
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -14,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+app.RestartDb();
+app.AddDataToCategory();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -23,6 +23,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+for (int i = 0; i < 10; i++) Console.WriteLine(Guid.NewGuid());
 
 app.UseAuthorization();
 

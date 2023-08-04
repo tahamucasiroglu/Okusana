@@ -2,7 +2,7 @@
 
 namespace Okusana.DTOs.Concrete.Request
 {
-    public record StringRequestDTO : AbstractRequest
+    public sealed record StringRequestDTO : AbstractRequest
     {
         public string Value { get; set; } = "";
     }

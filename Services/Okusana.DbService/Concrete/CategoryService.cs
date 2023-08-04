@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
 using Okusana.DbService.Base;
+using Okusana.DTOs.Concrete.BlogTag;
 using Okusana.DTOs.Concrete.Category;
 using Okusana.Entities.Concrete;
 using Okusana.Returns.Abstract;
@@ -17,12 +20,28 @@ namespace Okusana.DbService.Concrete
     {
         public CategoryService(ICategoryRepository repository, IMapper mapper) : base(repository, mapper) { }
 
-        public override IReturnModel<GetCategoryDTO> Add(AddCategoryDTO entity)
+        public IActionResult GetById(Guid Id)
         {
-            Console.WriteLine("asdasdasdas asdasdasdasasd");
-            return base.Add(entity);
+            IReturnModel<Category> result = repository.Get(e => e.Id == Id);
+            return ConvertToReturn<GetCategoryDTO, Category>(result, mapper);
         }
 
+        public IActionResult GetsByName(string Name)
+        {
+            IReturnModel<IEnumerable<Category>> result = repository.GetAll(e => e.Name.ToLower().Contains(Name.ToLower()));
+            return ConvertToReturn<GetCategoryDTO, Category>(result, mapper);
+        }
 
+        public async Task<IActionResult> GetByIdAsync(Guid Id)
+        {
+            IReturnModel<Category> result = await repository.GetAsync(e => e.Id == Id);
+            return ConvertToReturn<GetCategoryDTO, Category>(result, mapper);
+        }
+
+        public async Task<IActionResult> GetsByNameAsync(string Name)
+        {
+            IReturnModel<IEnumerable<Category>> result = await repository.GetAllAsync(e => e.Name.ToLower().Contains(Name.ToLower()));
+            return ConvertToReturn<GetCategoryDTO, Category>(result, mapper);
+        }
     }
 }

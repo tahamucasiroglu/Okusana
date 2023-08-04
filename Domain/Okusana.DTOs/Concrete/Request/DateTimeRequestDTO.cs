@@ -2,7 +2,7 @@
 
 namespace Okusana.DTOs.Concrete.Request
 {
-    public record DateTimeRequestDTO : AbstractRequest
+    public sealed record DateTimeRequestDTO : AbstractRequest
     {
         public DateTime Date { get; set; }
     }

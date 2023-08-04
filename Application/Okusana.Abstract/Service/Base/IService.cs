@@ -1,4 +1,5 @@
-﻿using Okusana.DTOs.Abstract;
+﻿using Microsoft.AspNetCore.Mvc;
+using Okusana.DTOs.Abstract;
 using Okusana.Returns.Abstract;
 
 
@@ -24,30 +25,30 @@ namespace Okusana.Abstract.Service.Base
 
     public interface _IServiceGetAll<Response> where Response : class, IGetDTO
     {
-        public IReturnModel<IEnumerable<Response>> GetAll();
-        public Task<IReturnModel<IEnumerable<Response>>> GetAllAsync();
+        public IActionResult GetAll();
+        public Task<IActionResult> GetAllAsync();
     }
 
     public interface _IServiceAdd<Response, in AddRequest>
     {
-        public IReturnModel<Response> Add(AddRequest entity);
-        public IReturnModel<IEnumerable<Response>> Add(IEnumerable<AddRequest> entity);
-        public Task<IReturnModel<Response>> AddAsync(AddRequest entity);
-        public Task<IReturnModel<IEnumerable<Response>>> AddAsync(IEnumerable<AddRequest> entity);
+        public IActionResult Add(AddRequest entity);
+        public IActionResult Add(IEnumerable<AddRequest> entity);
+        public Task<IActionResult> AddAsync(AddRequest entity);
+        public Task<IActionResult> AddAsync(IEnumerable<AddRequest> entity);
     }
 
     public interface _IServiceUpdate<Response, in UpdateRequest>
     {
-        public IReturnModel<Response> Update(UpdateRequest entity);
-        public IReturnModel<IEnumerable<Response>> Update(IEnumerable<UpdateRequest> entity);
-        public Task<IReturnModel<Response>> UpdateAsync(UpdateRequest entity);
-        public Task<IReturnModel<IEnumerable<Response>>> UpdateAsync(IEnumerable<UpdateRequest> entity);
+        public IActionResult Update(UpdateRequest entity);
+        public IActionResult Update(IEnumerable<UpdateRequest> entity);
+        public Task<IActionResult> UpdateAsync(UpdateRequest entity);
+        public Task<IActionResult> UpdateAsync(IEnumerable<UpdateRequest> entity);
     }
     public interface _IServiceDelete<Response>
     {
-        public IReturnModel<Response> Delete(Guid entity);
-        public IReturnModel<IEnumerable<Response>> Delete(IEnumerable<Guid> entity);
-        public Task<IReturnModel<Response>> DeleteAsync(Guid entity);
-        public Task<IReturnModel<IEnumerable<Response>>> DeleteAsync(IEnumerable<Guid> entity);
+        public IActionResult Delete(Guid entity);
+        public IActionResult Delete(IEnumerable<Guid> entity);
+        public Task<IActionResult> DeleteAsync(Guid entity);
+        public Task<IActionResult> DeleteAsync(IEnumerable<Guid> entity);
     }
 }

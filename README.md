@@ -51,3 +51,5 @@ blog ve diðerlerindeki dönüþlerde sayfalama ekle.
 ### sorulacaklar
 * validationdaki Isrequired içindeki isrequired durmalý mý amacý config te require true dan false olursa exception fýrlatýp hatýrlatmak
 * abstractservice ve abstractrepositorylerdeki parçalamalar mantýklý mý 
+* take hatasý sebebi nedir
+* user tablosunda emaili de key yaparak herkesin farklý email e sahip olmasý garantilenecek ama baseden gelen Id sonrasý hata veriyor. birleþtirme yolu var mý

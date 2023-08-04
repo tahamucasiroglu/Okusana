@@ -19,24 +19,51 @@ namespace Okusana.API.Controllers
             this.service = service;
         }
 
+        #region Senkron
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public IActionResult GetById([FromBody] GuidRequestDTO Value) => new OkObjectResult(service.GetById(Value.Value));
+
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //[ServiceFilter(typeof(DateTimeRequestDTOValidation))] // denenecek
+        //public IActionResult GetsByDate([FromBody] DateTimeRequestDTO Value) => new OkObjectResult(service.GetsByDate(Value.Date));
+
+
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public IActionResult GetsByDateRange([FromBody] DateTimeRangeRequestDTO Value) => new OkObjectResult(service.GetsByDateRange(Value.StartDate, Value.EndDate));
+
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public IActionResult Search([FromBody] StringRequestDTO Value) => new OkObjectResult(service.Search(Value.Value));
+
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public IActionResult GetLasts([FromBody] IntRequestDTO Value) => new OkObjectResult(service.GetLasts(Value.Value));
+        #endregion
+
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> GetById([FromBody] GuidRequestDTO Value) => new OkObjectResult(await service.GetByIdAsync(Value.Value));
+
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
         [ServiceFilter(typeof(DateTimeRequestDTOValidation))] // denenecek
-        public IActionResult GetByDate([FromBody] DateTimeRequestDTO Value) => new OkObjectResult(service.GetByDate(Value.Date));
-        
+        public async Task<IActionResult> GetsByDate([FromBody] DateTimeRequestDTO Value) => new OkObjectResult(await service.GetsByDateAsync(Value.Date));
+
 
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
-        public IActionResult GetByDateRange([FromBody] DateTimeRangeRequestDTO Value) => new OkObjectResult(service.GetByDateRange(Value.StartDate, Value.EndDate));
-        
+        public async Task<IActionResult> GetsByDateRange([FromBody] DateTimeRangeRequestDTO Value) => new OkObjectResult(await service.GetsByDateRangeAsync(Value.StartDate, Value.EndDate));
 
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> Search([FromBody] StringRequestDTO Value) => new OkObjectResult(await service.SearchAsync(Value.Value));
 
-
-
-
-
-
-
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> GetLasts([FromBody] IntRequestDTO Value) => new OkObjectResult(await service.GetLastsAsync(Value.Value));
 
 
     }

@@ -6,10 +6,7 @@ using Okusana.DbService.Base;
 using Okusana.DTOs.Concrete.Blog;
 using Okusana.Entities.Concrete;
 using Okusana.Extensions;
-using Okusana.Mapper.Extensions;
 using Okusana.Returns.Abstract;
-using Okusana.Returns.Concrete;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Okusana.DbService.Concrete
 {
@@ -17,27 +14,70 @@ namespace Okusana.DbService.Concrete
     {
         public BlogService(IBlogRepository repository, IMapper mapper) : base(repository, mapper) { }
 
-        public IActionResult GetByDate(DateTime date)
+        public IActionResult GetsByDate(DateTime date)
         {
             IReturnModel<IEnumerable<Blog>> result = repository.GetAll(e => e.CreateDate.IsSameCalenderDate(date));
-            if (!result.Status) return new BadRequestObjectResult(new ErrorReturnModel<IEnumerable<GetBlogDTO>>(result.Message ,result.Exception));
-            return new OkObjectResult(new SuccessReturnModel<IEnumerable<GetBlogDTO>>("", result.Data?.ConvertToEntity(mapper)));
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
         }
 
-        public IActionResult GetByDateRange(DateTime startDate, DateTime endDate)
+        public IActionResult GetsByDateRange(DateTime startDate, DateTime endDate)
         {
             IReturnModel<IEnumerable<Blog>> result = repository.GetAll(e => e.CreateDate.IsInRange(startDate, endDate));
-            if (!result.Status) return new BadRequestObjectResult(new ErrorReturnModel<IEnumerable<GetBlogDTO>>(result.Message, result.Exception));
-            return new OkObjectResult(new SuccessReturnModel<IEnumerable<GetBlogDTO>>("", result.Data?.ConvertToEntity(mapper)));
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+        public IActionResult GetById(Guid Id)
+        {
+            IReturnModel<Blog> result = repository.Get(e => e.Id == Id);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
         }
 
         public IActionResult Search(string Text)
         {
-            return new OkObjectResult("asd");
+            IReturnModel<IEnumerable<Blog>> result = repository.GetAll(e => e.Title.ToLower().Contains(Text.ToLower()));
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+
+        public IActionResult GetLasts(int count)
+        {
+            IReturnModel<IEnumerable<Blog>> result = repository.GetAll(^0..^count);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+        public async Task<IActionResult> GetsByDateAsync(DateTime date)
+        {
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(e => e.CreateDate.IsSameCalenderDate(date));
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+        public async Task<IActionResult> GetsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(e => e.CreateDate.IsInRange(startDate, endDate));
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+        public async Task<IActionResult> GetByIdAsync(Guid Id)
+        {
+            IReturnModel<Blog> result = await repository.GetAsync(e => e.Id == Id);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+        public async Task<IActionResult> SearchAsync(string Text)
+        {
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(e => e.Title.ToLower().Contains(Text.ToLower()));
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
+        }
+
+
+        public async Task<IActionResult> GetLastsAsync(int count)
+        {
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(^0..^count);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper);
         }
 
 
 
-        
+
     }
 }

@@ -5,6 +5,7 @@ namespace Okusana.API.Controllers.Base
 {
     public interface IBaseController
     {
+        public IActionResult GetAll();
     }
     public interface IBaseController<TAdd> : IBaseController
         where TAdd : class, IAddDTO, new()

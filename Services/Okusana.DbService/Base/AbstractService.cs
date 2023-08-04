@@ -7,6 +7,7 @@ using Okusana.Returns.Abstract;
 using Okusana.Returns.Concrete;
 using Okusana.Mapper.Extensions;
 using Okusana.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Okusana.DbService.Base
 {
@@ -20,19 +21,19 @@ namespace Okusana.DbService.Base
         /// <param name="result">Db'den gelen ve DTO'ya dönüştürülecek veriyi temsil eden IReturnModel nesnesi.</param>
         /// <param name="mapper">DTO dönüşümünde kullanılacak IMapper nesnesi.</param> 
         /// <returns>Dönüştürülen sonucu temsil eden IReturnModel nesnesi.</returns>
-        public virtual IReturnModel<TCheck> ConvertToReturn<TCheck, TEntity>(IReturnModel<TEntity> result, IMapper mapper)
+        public virtual IActionResult ConvertToReturn<TCheck, TEntity>(IReturnModel<TEntity> result, IMapper mapper)
             where TCheck : class, IGetDTO
             where TEntity : class, IEntity, new()
         {
             if (result.Status)
             {
                 return result.Data == null
-                    ? new SuccessReturnModel<TCheck>("Data is null")
-                    : new SuccessReturnModel<TCheck>(result.Data.ConvertToDtoCustom<TCheck>(mapper));
+                    ? new OkObjectResult(new SuccessReturnModel<TCheck>("Data is null " + result.Message))
+                    : new OkObjectResult(new SuccessReturnModel<TCheck>(result.Message, result.Data.ConvertToDtoCustom<TCheck>(mapper)));
             }
             else
             {
-                return new ErrorReturnModel<TCheck>(result.Message, null, result.Exception);
+                return new BadRequestObjectResult(new ErrorReturnModel<TCheck>(result.Message, null, result.Exception));
             }
         }
         /// <summary>
@@ -43,21 +44,24 @@ namespace Okusana.DbService.Base
         /// <param name="result">Db'den gelen ve DTO'ya dönüştürülecek veriyi temsil eden IReturnModel nesnesi.</param>
         /// <param name="mapper">DTO dönüşümünde kullanılacak IMapper nesnesi.</param> 
         /// <returns>Dönüştürülen sonucu temsil eden IReturnModel nesnesi.</returns>
-        public virtual IReturnModel<IEnumerable<TCheck>> ConvertToReturn<TCheck, TEntity>(IReturnModel<IEnumerable<TEntity>> result, IMapper mapper)
+        public virtual IActionResult ConvertToReturn<TCheck, TEntity>(IReturnModel<IEnumerable<TEntity>> result, IMapper mapper)
             where TCheck : class, IGetDTO
             where TEntity : class, IEntity, new()
         {
             if (result.Status)
             {
                 return result.Data == null ?
-                    new SuccessReturnModel<IEnumerable<TCheck>>("Data is null") :
-                    new SuccessReturnModel<IEnumerable<TCheck>>(result.Data.ConvertToDtoCustom<TCheck>(mapper));
+                    new OkObjectResult(new SuccessReturnModel<IEnumerable<TCheck>>("Data is null " + result.Message)) :
+                    new OkObjectResult(new SuccessReturnModel<IEnumerable<TCheck>>(result.Message, result.Data.ConvertToDtoCustom<TCheck>(mapper)));
             }
             else
             {
-                return new ErrorReturnModel<IEnumerable<TCheck>>(result.Message, null, result.Exception);
+                return new BadRequestObjectResult(new ErrorReturnModel<IEnumerable<TCheck>>(result.Message, null, result.Exception));
             }
         }
+
+        public virtual IActionResult ReturnEmptyError<T>(string? Message = null) => new BadRequestObjectResult(new ErrorReturnModel<T>(Message));
+
     }
     abstract public class AbstractService<TEntity> : AbstractService
         where TEntity : class, IEntity, new()
@@ -75,13 +79,13 @@ namespace Okusana.DbService.Base
         where Response : class, IGetDTO
     {
         public AbstractService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper) { }
-        public virtual IReturnModel<IEnumerable<Response>> GetAll()
+        public virtual IActionResult GetAll()
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.GetAll();
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual async Task<IReturnModel<IEnumerable<Response>>> GetAllAsync()
+        public virtual async Task<IActionResult> GetAllAsync()
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.GetAllAsync();
             return ConvertToReturn<Response, TEntity>(result, mapper);
@@ -94,31 +98,31 @@ namespace Okusana.DbService.Base
     {
         public AbstractService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper) { }
 
-        public virtual IReturnModel<Response> Add(AddRequest entity)
+        public virtual IActionResult Add(AddRequest entity)
         {
             IReturnModel<TEntity> result = repository.Add(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual IReturnModel<IEnumerable<Response>> Add(IEnumerable<AddRequest> entity)
+        public virtual IActionResult Add(IEnumerable<AddRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.Add(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual async Task<IReturnModel<Response>> AddAsync(AddRequest entity)
+        public virtual async Task<IActionResult> AddAsync(AddRequest entity)
         {
             IReturnModel<TEntity> result = await repository.AddAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual async Task<IReturnModel<IEnumerable<Response>>> AddAsync(IEnumerable<AddRequest> entity)
+        public virtual async Task<IActionResult> AddAsync(IEnumerable<AddRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.AddAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual IReturnModel<Response> Delete(Guid entity)
+        public virtual IActionResult Delete(Guid entity)
         {
             IReturnModel<TEntity> result = repository.Get(e => e.Id == entity);
             if(result.Status && result.Data != null) 
@@ -129,11 +133,11 @@ namespace Okusana.DbService.Base
             }
             else
             {
-                return new ErrorReturnModel<Response>();
+                return ReturnEmptyError<Response>();
             }
         }
 
-        public virtual IReturnModel<IEnumerable<Response>> Delete(IEnumerable<Guid> entity)
+        public virtual IActionResult Delete(IEnumerable<Guid> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.GetAll(e => entity.Any(x => x == e.Id));
             if (result.Status && result.Data != null)
@@ -144,11 +148,11 @@ namespace Okusana.DbService.Base
             }
             else
             {
-                return new ErrorReturnModel<IEnumerable<Response>>();
+                return ReturnEmptyError<Response>();
             }
         }
 
-        public virtual async Task<IReturnModel<Response>> DeleteAsync(Guid entity)
+        public virtual async Task<IActionResult> DeleteAsync(Guid entity)
         {
             IReturnModel<TEntity> result = await repository.GetAsync(e => e.Id == entity);
             if (result.Status && result.Data != null)
@@ -159,11 +163,11 @@ namespace Okusana.DbService.Base
             }
             else
             {
-                return new ErrorReturnModel<Response>();
+                return ReturnEmptyError<Response>();
             }
         }
 
-        public virtual async Task<IReturnModel<IEnumerable<Response>>> DeleteAsync(IEnumerable<Guid> entity)
+        public virtual async Task<IActionResult> DeleteAsync(IEnumerable<Guid> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.GetAllAsync(e => entity.Any(x => x == e.Id));
             if (result.Status && result.Data != null)
@@ -174,7 +178,7 @@ namespace Okusana.DbService.Base
             }
             else
             {
-                return new ErrorReturnModel<IEnumerable<Response>>();
+                return ReturnEmptyError<Response>();
             }
         }
     }
@@ -187,25 +191,25 @@ namespace Okusana.DbService.Base
     {
         public AbstractService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper) { }
 
-        public virtual IReturnModel<Response> Update(UpdateRequest entity)
+        public virtual IActionResult Update(UpdateRequest entity)
         {
             IReturnModel<TEntity> result = repository.Update(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual IReturnModel<IEnumerable<Response>> Update(IEnumerable<UpdateRequest> entity)
+        public virtual IActionResult Update(IEnumerable<UpdateRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.Update(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual async Task<IReturnModel<Response>> UpdateAsync(UpdateRequest entity)
+        public virtual async Task<IActionResult> UpdateAsync(UpdateRequest entity)
         {
             IReturnModel<TEntity> result = await repository.UpdateAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
         }
 
-        public virtual async Task<IReturnModel<IEnumerable<Response>>> UpdateAsync(IEnumerable<UpdateRequest> entity)
+        public virtual async Task<IActionResult> UpdateAsync(IEnumerable<UpdateRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.UpdateAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
             return ConvertToReturn<Response, TEntity>(result, mapper);
