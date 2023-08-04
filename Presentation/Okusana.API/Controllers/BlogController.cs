@@ -22,13 +22,18 @@ namespace Okusana.API.Controllers
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
         [ServiceFilter(typeof(DateTimeRequestDTOValidation))] // denenecek
-        public IActionResult GetByDate([FromBody]DateTimeRequestDTO Value)
-        {
-            return new OkObjectResult(service.GetByDate(Value.Date));
-        }
-
-
+        public IActionResult GetByDate([FromBody] DateTimeRequestDTO Value) => new OkObjectResult(service.GetByDate(Value.Date));
         
+
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public IActionResult GetByDateRange([FromBody] DateTimeRangeRequestDTO Value) => new OkObjectResult(service.GetByDateRange(Value.StartDate, Value.EndDate));
+        
+
+
+
+
+
 
 
 

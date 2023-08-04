@@ -3,7 +3,7 @@ using Okusana.Infrasructure.Contexts.PgContext;
 
 namespace Okusana.API.Extensions
 {
-    static public class AddDbExtension
+    static public class DbExtension
     {
         public static void AddDb(this WebApplicationBuilder builder)
         {
@@ -18,6 +18,18 @@ namespace Okusana.API.Extensions
                 }));
                 opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
+        }
+
+        static public void RestartDb(this IServiceProvider services)
+        {
+            using (var context = services.CreateScope().ServiceProvider.GetRequiredService<OkusanaPgContext>())
+            {
+                if (context.Database.CanConnect())
+                {
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                }
+            }
         }
     }
 }

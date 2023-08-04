@@ -6,6 +6,12 @@ servisler httpstatus dönecek
 üyelik eklenecek
 model stateleri attribute ile controllerlar içinde kontrol etmeyþi dene
 
+
+özel IServicelerde IActionresult dön kalanlarýný oradan kullan.
+blog ve diðerlerindeki dönüþlerde sayfalama ekle. 
+Çoklu sýnýf yapýsýna bak yani actionlara yanlarýna PagenatiopnModel gibi ekleme olur mu bak
+
+
 ### Notlar
 
 * dotnet ef migrations add 1_test_mig -> migleme
@@ -39,7 +45,8 @@ model stateleri attribute ile controllerlar içinde kontrol etmeyþi dene
 * bazý yerlerde view eklebilir
 * BlogTag için ol ara sistemde Core lar ile çalýþýlmasý lazým bakýn
 * servislere sonradan mail servisi eklemeyi dene
-
+* CQRS yapýsý eklemeyi deneyebilrisin
+* 
 
 ### sorulacaklar
 * validationdaki Isrequired içindeki isrequired durmalý mý amacý config te require true dan false olursa exception fýrlatýp hatýrlatmak
