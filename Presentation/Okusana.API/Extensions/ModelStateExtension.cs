@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
-using Okusana.API.Models.HateoasModel;
-using Okusana.API.Models.ResponseModel;
+using Okusana.Abstract.Models.HateoasModel;
+using Okusana.Models.ResponseModel;
 
 namespace Okusana.API.Extensions
 {
     static public class ModelStateExtension
     {
-        static public BadRequestObjectResult ReturnError(this ModelStateDictionary ModelState, Hateoas? hateoas = null)
+        static public BadRequestObjectResult ReturnError(this ModelStateDictionary ModelState, IHateoas? hateoas = null)
         {
             string errorText = "";
             foreach (var key in ModelState.Keys)

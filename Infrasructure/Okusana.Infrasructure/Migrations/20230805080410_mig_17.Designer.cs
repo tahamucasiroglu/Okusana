@@ -12,8 +12,8 @@ using Okusana.Infrasructure.Contexts.PgContext;
 namespace Okusana.Infrasructure.Migrations
 {
     [DbContext(typeof(OkusanaPgContext))]
-    [Migration("20230801150314_16_mig")]
-    partial class _16_mig
+    [Migration("20230805080410_mig_17")]
+    partial class mig_17
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,11 +147,7 @@ namespace Okusana.Infrasructure.Migrations
                         .HasColumnType("text")
                         .HasComment("kullanıcı yorum yazısı");
 
-                    b.Property<bool>("IsLike")
-                        .HasColumnType("boolean")
-                        .HasComment("kullanıcı beğenme durumu");
-
-                    b.Property<int?>("Rate")
+                    b.Property<int>("Rate")
                         .HasColumnType("integer")
                         .HasComment("kullanıcı puan değeri 5 üzerinden olur bir değişiklik olmazsa");
 
@@ -162,7 +158,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("Rate", "IsLike", "CreateDate", "IsDeleted");
+                    b.HasIndex("Rate", "CreateDate", "IsDeleted");
 
                     b.ToTable("Comments", "Okusana");
                 });

@@ -1,11 +1,12 @@
-﻿using Okusana.DTOs.Concrete.SubCategory;
+﻿using Okusana.Abstract.Models.HateoasModel;
+using Okusana.DTOs.Concrete.SubCategory;
 using Okusana.Extensions;
 
-namespace Okusana.API.Models.HateoasModel
+namespace Okusana.Models.HateoasModel
 {
     public partial record Hateoas
     {
-        public record SubCategory
+        public record SubCategory : ISubCategoryHateoas
         {
             public Dictionary<string, List<string>> Links
             {

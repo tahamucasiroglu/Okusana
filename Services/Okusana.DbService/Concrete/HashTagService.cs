@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
 using Okusana.DbService.Base;
 using Okusana.DTOs.Concrete.Comment;
 using Okusana.DTOs.Concrete.HashTag;
 using Okusana.Entities.Concrete;
+using Okusana.Models.HateoasModel;
 using Okusana.Returns.Abstract;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace Okusana.DbService.Concrete
 {
     public class HashTagService : AbstractService<HashTag, GetHashTagDTO, AddHashTagDTO, UpdateHashTagDTO>, IHashTagService
     {
-        public HashTagService(IHashTagRepository repository, IMapper mapper) : base(repository, mapper) { }
+        public HashTagService(IHashTagRepository repository, IMapper mapper, IHashTagHateoas hateoas) : base(repository, mapper, hateoas) { }
 
         public IActionResult GetById(Guid Id)
         {

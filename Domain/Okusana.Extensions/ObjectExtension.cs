@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,10 +10,10 @@ namespace Okusana.Extensions
 {
     static public class ObjectExtension
     {
-        static public Dictionary<string, string> GetPropertyDict(this object obj)
+        static public Dictionary<string, string> GetPropertyDict(this Type type)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            foreach (PropertyInfo item in obj.GetType().GetProperties())
+            foreach (PropertyInfo item in type.GetProperties())
             {
                 dict.Add(item.Name, item.PropertyType.ToString());
             }

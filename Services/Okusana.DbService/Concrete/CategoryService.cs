@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
 using Okusana.DbService.Base;
 using Okusana.DTOs.Concrete.BlogTag;
 using Okusana.DTOs.Concrete.Category;
 using Okusana.Entities.Concrete;
+using Okusana.Models.HateoasModel;
 using Okusana.Returns.Abstract;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace Okusana.DbService.Concrete
 {
     public class CategoryService : AbstractService<Category, GetCategoryDTO, AddCategoryDTO, UpdateCategoryDTO>, ICategoryService
     {
-        public CategoryService(ICategoryRepository repository, IMapper mapper) : base(repository, mapper) { }
+        public CategoryService(ICategoryRepository repository, IMapper mapper, ICategoryHateoas hateoas) : base(repository, mapper, hateoas) { }
 
         public IActionResult GetById(Guid Id)
         {

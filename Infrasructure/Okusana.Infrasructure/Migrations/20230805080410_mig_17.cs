@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Okusana.Infrasructure.Migrations
 {
     /// <inheritdoc />
-    public partial class _16_mig : Migration
+    public partial class mig_17 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -178,8 +178,7 @@ namespace Okusana.Infrasructure.Migrations
                     BlogId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Content = table.Column<string>(type: "text", unicode: false, maxLength: 250, nullable: false, comment: "kullanıcı yorum yazısı"),
-                    Rate = table.Column<int>(type: "integer", nullable: true, comment: "kullanıcı puan değeri 5 üzerinden olur bir değişiklik olmazsa"),
-                    IsLike = table.Column<bool>(type: "boolean", nullable: false, comment: "kullanıcı beğenme durumu")
+                    Rate = table.Column<int>(type: "integer", nullable: false, comment: "kullanıcı puan değeri 5 üzerinden olur bir değişiklik olmazsa")
                 },
                 constraints: table =>
                 {
@@ -241,10 +240,10 @@ namespace Okusana.Infrasructure.Migrations
                 column: "BlogId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_Rate_IsLike_CreateDate_IsDeleted",
+                name: "IX_Comments_Rate_CreateDate_IsDeleted",
                 schema: "Okusana",
                 table: "Comments",
-                columns: new[] { "Rate", "IsLike", "CreateDate", "IsDeleted" });
+                columns: new[] { "Rate", "CreateDate", "IsDeleted" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",

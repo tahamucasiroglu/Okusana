@@ -20,9 +20,11 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
 
             entity.HasOne(e => e.Blog).WithMany(e => e.BlogTags)
                 .HasForeignKey(e => e.BlogId)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_BlogTag_Blog");
             entity.HasOne(e => e.HashTag).WithMany(e => e.BlogTags)
-                .HasForeignKey(e => e.BlogId)
+                .HasForeignKey(e => e.TagId)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_BlogTag_HashTag");
         }
     }

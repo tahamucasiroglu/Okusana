@@ -8,8 +8,7 @@ namespace Okusana.Entities.Concrete
         public Guid BlogId { get; set; }
         public Guid UserId { get; set; }
         public string Content { get; set; } = null!;
-        public int? Rate { get; set; }
-        public bool IsLike { get; set; }
+        public int Rate { get; set; }
         public virtual Blog Blog { get; set; } = null!;
         public virtual User User { get; set; } = null!;
     }

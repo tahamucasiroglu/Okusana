@@ -54,15 +54,10 @@
             }
             static public class Rate
             {
-                public const bool Required = false;
+                public const bool Required = true;
                 public const int Min = 0;
                 public const int Max = 5;
             }
-            static public class IsLike
-            {
-                public const bool Required = true;
-            }
-
         }
 
         static public class HashTag

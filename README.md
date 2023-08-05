@@ -2,15 +2,14 @@
 
 
 fluent validation attribute oluyor
-servisler httpstatus dönecek
-üyelik eklenecek
-model stateleri attribute ile controllerlar içinde kontrol etmeyþi dene
 
 
-özel IServicelerde IActionresult dön kalanlarýný oradan kullan.
+
 blog ve diðerlerindeki dönüþlerde sayfalama ekle. 
 Çoklu sýnýf yapýsýna bak yani actionlara yanlarýna PagenatiopnModel gibi ekleme olur mu bak
 
+
+basede authorize ekledin onun configlerini ayarla test et sonra sikir git FE yap arayüz yok elde
 
 ### Notlar
 
@@ -46,7 +45,8 @@ blog ve diðerlerindeki dönüþlerde sayfalama ekle.
 * BlogTag için ol ara sistemde Core lar ile çalýþýlmasý lazým bakýn
 * servislere sonradan mail servisi eklemeyi dene
 * CQRS yapýsý eklemeyi deneyebilrisin
-* 
+* <del> özel IServicelerde IActionresult dön kalanlarýný oradan kullan. </del>
+* <del> servisler httpstatus dönecek </del>
 
 ### sorulacaklar
 * validationdaki Isrequired içindeki isrequired durmalý mý amacý config te require true dan false olursa exception fýrlatýp hatýrlatmak

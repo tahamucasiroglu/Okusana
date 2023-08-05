@@ -8,11 +8,20 @@ using Okusana.Returns.Concrete;
 using Okusana.Mapper.Extensions;
 using Okusana.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Okusana.Models.ResponseModel;
+using Okusana.Abstract.Models.PaginationModel;
+using Okusana.Abstract.Models.HateoasModel;
+using Okusana.Models.HateoasModel;
 
 namespace Okusana.DbService.Base
 {
     abstract public class AbstractService : IService
     {
+        private IActionResult EmptyDataReturn<TCheck, TEntity>(string? Message = null, IHateoas? IHateoas = null, IPagination? pagination = null) => new OkObjectResult(new Response<TCheck>(new SuccessReturnModel<TCheck>("Data is null " + Message), "Başarıyla döndürme sağlandı fakat data null", IHateoas, pagination));
+        
+        private IActionResult ErrorDataReturn<TCheck>(string? Message = null, Exception? exception = null) => new BadRequestObjectResult(new Response<IEnumerable<TCheck>>(new ErrorReturnModel<IEnumerable<TCheck>>(Message, null, exception)));
+
+
         /// <summary>
         /// Tüm servis dönüşlerini kontrol etmek ve kolayca dönüştürmek için kullanılan yardımcı bir method.
         /// </summary>
@@ -21,19 +30,20 @@ namespace Okusana.DbService.Base
         /// <param name="result">Db'den gelen ve DTO'ya dönüştürülecek veriyi temsil eden IReturnModel nesnesi.</param>
         /// <param name="mapper">DTO dönüşümünde kullanılacak IMapper nesnesi.</param> 
         /// <returns>Dönüştürülen sonucu temsil eden IReturnModel nesnesi.</returns>
-        public virtual IActionResult ConvertToReturn<TCheck, TEntity>(IReturnModel<TEntity> result, IMapper mapper)
+        public virtual IActionResult ConvertToReturn<TCheck, TEntity>(IReturnModel<TEntity> result, IMapper mapper, IHateoas? hateoas = null, IPagination? pagination = null)
             where TCheck : class, IGetDTO
             where TEntity : class, IEntity, new()
         {
+            Console.WriteLine(hateoas);
             if (result.Status)
             {
-                return result.Data == null
-                    ? new OkObjectResult(new SuccessReturnModel<TCheck>("Data is null " + result.Message))
-                    : new OkObjectResult(new SuccessReturnModel<TCheck>(result.Message, result.Data.ConvertToDtoCustom<TCheck>(mapper)));
+                return result.Data == null ?
+                    EmptyDataReturn<TCheck, TEntity>(result.Message, hateoas, pagination) :
+                    new OkObjectResult(new Response<TCheck>(new SuccessReturnModel<TCheck>("Data not null " + result.Message, result.Data.ConvertToDtoCustom<TCheck>(mapper)), "Başarıyla döndürme sağlandı data null değil", hateoas, pagination));
             }
             else
             {
-                return new BadRequestObjectResult(new ErrorReturnModel<TCheck>(result.Message, null, result.Exception));
+                return ErrorDataReturn<TCheck>(result.Message, result.Exception);
             }
         }
         /// <summary>
@@ -44,19 +54,20 @@ namespace Okusana.DbService.Base
         /// <param name="result">Db'den gelen ve DTO'ya dönüştürülecek veriyi temsil eden IReturnModel nesnesi.</param>
         /// <param name="mapper">DTO dönüşümünde kullanılacak IMapper nesnesi.</param> 
         /// <returns>Dönüştürülen sonucu temsil eden IReturnModel nesnesi.</returns>
-        public virtual IActionResult ConvertToReturn<TCheck, TEntity>(IReturnModel<IEnumerable<TEntity>> result, IMapper mapper)
+        public virtual IActionResult ConvertToReturn<TCheck, TEntity>(IReturnModel<IEnumerable<TEntity>> result, IMapper mapper, IHateoas? hateoas = null, IPagination? pagination = null)
             where TCheck : class, IGetDTO
             where TEntity : class, IEntity, new()
         {
+            Console.WriteLine(hateoas);
             if (result.Status)
             {
                 return result.Data == null ?
-                    new OkObjectResult(new SuccessReturnModel<IEnumerable<TCheck>>("Data is null " + result.Message)) :
-                    new OkObjectResult(new SuccessReturnModel<IEnumerable<TCheck>>(result.Message, result.Data.ConvertToDtoCustom<TCheck>(mapper)));
+                    EmptyDataReturn<TCheck, TEntity>(result.Message, hateoas, pagination) :
+                    new OkObjectResult(new Response<IEnumerable<TCheck>>(new SuccessReturnModel<IEnumerable<TCheck>>("Data not null " + result.Message, result.Data.ConvertToDtoCustom<TCheck>(mapper)), "Başarıyla döndürme sağlandı data null değil", hateoas, pagination));
             }
             else
             {
-                return new BadRequestObjectResult(new ErrorReturnModel<IEnumerable<TCheck>>(result.Message, null, result.Exception));
+                return ErrorDataReturn<TCheck>(result.Message, result.Exception);
             }
         }
 
@@ -68,27 +79,29 @@ namespace Okusana.DbService.Base
     {
         internal readonly IRepository<TEntity> repository;
         internal readonly IMapper mapper;
-        public AbstractService(IRepository<TEntity> repository, IMapper mapper)
+        internal readonly IHateoas hateoas;
+        public AbstractService(IRepository<TEntity> repository, IMapper mapper, IHateoas hateoas)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.hateoas = hateoas;
         }
     }
     abstract public class AbstractService<TEntity, Response> : AbstractService<TEntity>, IService<Response>
         where TEntity : class, IEntity, new()
         where Response : class, IGetDTO
     {
-        public AbstractService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper) { }
+        public AbstractService(IRepository<TEntity> repository, IMapper mapper, IHateoas hateoas) : base(repository, mapper, hateoas) { }
         public virtual IActionResult GetAll()
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.GetAll();
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual async Task<IActionResult> GetAllAsync()
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.GetAllAsync();
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
     }
     abstract public class AbstractService<TEntity, Response, AddRequest> : AbstractService<TEntity, Response>, IService<Response, AddRequest>
@@ -96,30 +109,30 @@ namespace Okusana.DbService.Base
         where Response : class, IGetDTO
         where AddRequest : class, IAddDTO
     {
-        public AbstractService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper) { }
+        public AbstractService(IRepository<TEntity> repository, IMapper mapper, IHateoas hateoas) : base(repository, mapper, hateoas) { }
 
         public virtual IActionResult Add(AddRequest entity)
         {
             IReturnModel<TEntity> result = repository.Add(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual IActionResult Add(IEnumerable<AddRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.Add(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual async Task<IActionResult> AddAsync(AddRequest entity)
         {
             IReturnModel<TEntity> result = await repository.AddAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual async Task<IActionResult> AddAsync(IEnumerable<AddRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.AddAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual IActionResult Delete(Guid entity)
@@ -129,7 +142,7 @@ namespace Okusana.DbService.Base
             {
                 TEntity data = result.Data;
                 data.IsDeleted = true;
-                return ConvertToReturn<Response, TEntity>(repository.Update(data), mapper);
+                return ConvertToReturn<Response, TEntity>(repository.Update(data), mapper, hateoas);
             }
             else
             {
@@ -144,7 +157,7 @@ namespace Okusana.DbService.Base
             {
                 IEnumerable<TEntity> data = result.Data;
                 data = data.ChangeAll(e => e.IsDeleted = true);
-                return ConvertToReturn<Response, TEntity>(repository.Update(data), mapper);
+                return ConvertToReturn<Response, TEntity>(repository.Update(data), mapper, hateoas);
             }
             else
             {
@@ -159,7 +172,7 @@ namespace Okusana.DbService.Base
             {
                 TEntity data = result.Data;
                 data.IsDeleted = true;
-                return ConvertToReturn<Response, TEntity>(await repository.UpdateAsync(data), mapper);
+                return ConvertToReturn<Response, TEntity>(await repository.UpdateAsync(data), mapper, hateoas);
             }
             else
             {
@@ -174,7 +187,7 @@ namespace Okusana.DbService.Base
             {
                 IEnumerable<TEntity> data = result.Data;
                 data = data.ChangeAll(e => e.IsDeleted = true);
-                return ConvertToReturn<Response, TEntity>(await repository.UpdateAsync(data), mapper);
+                return ConvertToReturn<Response, TEntity>(await repository.UpdateAsync(data), mapper, hateoas);
             }
             else
             {
@@ -189,30 +202,30 @@ namespace Okusana.DbService.Base
         where AddRequest : class, IAddDTO
         where UpdateRequest : class, IUpdateDTO
     {
-        public AbstractService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper) { }
+        public AbstractService(IRepository<TEntity> repository, IMapper mapper, IHateoas hateoas) : base(repository, mapper, hateoas) { }
 
         public virtual IActionResult Update(UpdateRequest entity)
         {
             IReturnModel<TEntity> result = repository.Update(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual IActionResult Update(IEnumerable<UpdateRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = repository.Update(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual async Task<IActionResult> UpdateAsync(UpdateRequest entity)
         {
             IReturnModel<TEntity> result = await repository.UpdateAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
 
         public virtual async Task<IActionResult> UpdateAsync(IEnumerable<UpdateRequest> entity)
         {
             IReturnModel<IEnumerable<TEntity>> result = await repository.UpdateAsync(entity.ConvertToEntityCustom<TEntity>(mapper));
-            return ConvertToReturn<Response, TEntity>(result, mapper);
+            return ConvertToReturn<Response, TEntity>(result, mapper, hateoas);
         }
     }
 

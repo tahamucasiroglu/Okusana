@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrasructure\Okusana.Infrasructure\Okusana.Infrasructure.csproj" />
-    <ProjectReference Include="..\..\Infrasructure\Okusana.Models\Okusana.Models.csproj" />
+    <ProjectReference Include="..\..\Application\Okusana.Abstract\Okusana.Abstract.csproj" />
+    <ProjectReference Include="..\..\Application\Okusana.Mapper\Okusana.Mapper.csproj" />
+    <ProjectReference Include="..\..\Application\Okusana.Validation\Okusana.Validation.csproj" />
   </ItemGroup>
 
 </Project>

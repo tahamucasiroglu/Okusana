@@ -13,7 +13,7 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             entity.HasBaseType(typeof(Entity));//test et (dev not: burada da oluyor galiba direk genel configde use tcp ile de oluyor bakalım.)
             entity.ToTable(nameof(OkusanaPgContext.Comments));
             //entity.HasKey(e => e.Id);
-            entity.HasIndex(e => new { e.Rate, e.IsLike, e.CreateDate, e.IsDeleted });
+            entity.HasIndex(e => new { e.Rate, e.CreateDate, e.IsDeleted });
             //entity.HasQueryFilter(e => !e.IsDeleted);
             //entity.Property(e => e.CreateDate).HasDefaultValueSql("NOW()");
 
@@ -27,10 +27,6 @@ namespace Okusana.Infrasructure.Contexts.PgContext.Configs
             entity.Property(e => e.Rate)
                 .IsRequired(DbSettings.Comment.Rate.Required)
                 .HasComment("kullanıcı puan değeri 5 üzerinden olur bir değişiklik olmazsa");
-
-            entity.Property(e => e.IsLike)
-                .IsRequired(DbSettings.Comment.IsLike.Required)
-                .HasComment("kullanıcı beğenme durumu");
 
             entity.HasOne(e => e.Blog).WithMany(e => e.Comments)
                 .HasForeignKey(e => e.BlogId)

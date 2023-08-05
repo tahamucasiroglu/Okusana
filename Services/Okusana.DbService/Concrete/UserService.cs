@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
 using Okusana.DbService.Base;
@@ -7,6 +8,7 @@ using Okusana.DTOs.Concrete.SubCategory;
 using Okusana.DTOs.Concrete.User;
 using Okusana.Entities.Concrete;
 using Okusana.Extensions;
+using Okusana.Models.HateoasModel;
 using Okusana.Returns.Abstract;
 using System;
 using System.Collections.Generic;
@@ -19,12 +21,12 @@ namespace Okusana.DbService.Concrete
 {
     public class UserService : AbstractService<User, GetUserDTO, AddUserDTO, UpdateUserDTO>, IUserService
     {
-        public UserService(IUserRepository repository, IMapper mapper) : base(repository, mapper) { }
+        public UserService(IUserRepository repository, IMapper mapper, IUserHateoas hateoas) : base(repository, mapper, hateoas) { }
 
         public IActionResult GetByEmail(string Email)
         {
             IReturnModel<User> result = repository.Get(e => e.Email == Email);
-            return ConvertToReturn<GetUserDTO, User>(result, mapper);
+            return ConvertToReturn<GetUserDTO, User>(result, mapper, hateoas);
         }
 
         public IActionResult GetById(Guid Id)

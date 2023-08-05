@@ -1,4 +1,6 @@
-﻿namespace Okusana.API.Models.PaginationModel
+﻿using Okusana.Abstract.Models.PaginationModel;
+
+namespace Okusana.Models.PaginationModel
 {
     public class Pagenitaion : IPagination
     {

@@ -5,7 +5,7 @@ using Okusana.Infrasructure.Repository.EfCore;
 
 namespace Okusana.API.Extensions
 {
-    static public class AddScopedExtension
+    static public class ScopedExtension
     {
         public static void AddScoped(this WebApplicationBuilder builder)
         {

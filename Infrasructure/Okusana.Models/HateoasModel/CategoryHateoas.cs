@@ -1,13 +1,14 @@
-﻿using Okusana.DTOs.Concrete.Category;
+﻿using Okusana.Abstract.Models.HateoasModel;
+using Okusana.DTOs.Concrete.Category;
 using Okusana.Extensions;
 
-namespace Okusana.API.Models.HateoasModel
+namespace Okusana.Models.HateoasModel
 {
     public partial record Hateoas
     {
-        public record Category
+        public record Category : ICategoryHateoas
         {
-            public static Dictionary<string, List<string>> Links
+            public Dictionary<string, List<string>> Links
             {
                 get => new Dictionary<string, List<string>>()
             {
@@ -17,7 +18,7 @@ namespace Okusana.API.Models.HateoasModel
                     {Hateoas.Methods.Delete, new List<string>{ $"/{nameof(DeleteCategoryDTO)}" } },
             };
             }
-            public static Dictionary<string, Dictionary<string, string>> Methods
+            public Dictionary<string, Dictionary<string, string>> Methods
             {
                 get => new Dictionary<string, Dictionary<string, string>>()
             {

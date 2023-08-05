@@ -144,11 +144,7 @@ namespace Okusana.Infrasructure.Migrations
                         .HasColumnType("text")
                         .HasComment("kullanıcı yorum yazısı");
 
-                    b.Property<bool>("IsLike")
-                        .HasColumnType("boolean")
-                        .HasComment("kullanıcı beğenme durumu");
-
-                    b.Property<int?>("Rate")
+                    b.Property<int>("Rate")
                         .HasColumnType("integer")
                         .HasComment("kullanıcı puan değeri 5 üzerinden olur bir değişiklik olmazsa");
 
@@ -159,7 +155,7 @@ namespace Okusana.Infrasructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("Rate", "IsLike", "CreateDate", "IsDeleted");
+                    b.HasIndex("Rate", "CreateDate", "IsDeleted");
 
                     b.ToTable("Comments", "Okusana");
                 });

@@ -18,7 +18,6 @@ namespace Okusana.Validation.Validations.CommentValidation
             RuleFor(e => e.UserId).Required(DbSettings.Comment.UserId.Required, "Bunu hangi üye eklemek itiyor");
             RuleFor(e => e.Content).MaximumLength(DbSettings.Comment.Content.Length).Required(DbSettings.Comment.Content.Required, "En azından iyi yaz");
             RuleFor(e => e.Rate).Must(e => e == null || e >= DbSettings.Comment.Rate.Min && e <= DbSettings.Comment.Rate.Max);
-            RuleFor(e => e.IsLike).Required(DbSettings.Comment.IsLike.Required, "Beğendi mi beğenmedi mi");
         }
     }
 }

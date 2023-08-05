@@ -1,14 +1,15 @@
 ﻿
+using Okusana.Abstract.Models.HateoasModel;
 using Okusana.DTOs.Concrete.HashTag;
 using Okusana.Extensions;
 
-namespace Okusana.API.Models.HateoasModel
+namespace Okusana.Models.HateoasModel
 {
     public partial record Hateoas
     {
-        public record HashTag
+        public record HashTag : IHashTagHateoas
         {
-            public static Dictionary<string, List<string>> Links
+            public Dictionary<string, List<string>> Links
             {
                 get => new Dictionary<string, List<string>>()
             {
@@ -18,7 +19,7 @@ namespace Okusana.API.Models.HateoasModel
                     {Hateoas.Methods.Delete, new List<string>{ $"/{nameof(DeleteHashTagDTO)}" } },
             };
             }
-            public static Dictionary<string, Dictionary<string, string>> Methods
+            public Dictionary<string, Dictionary<string, string>> Methods
             {
                 get => new Dictionary<string, Dictionary<string, string>>()
             {

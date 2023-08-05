@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
 using Okusana.DbService.Base;
 using Okusana.DTOs.Concrete.BlogTag;
 using Okusana.Entities.Concrete;
+using Okusana.Models.HateoasModel;
 using Okusana.Returns.Abstract;
 
 namespace Okusana.DbService.Concrete
 {
     public class BlogTagService : AbstractService<BlogTag, GetBlogTagDTO, AddBlogTagDTO, UpdateBlogTagDTO>, IBlogTagService
     {
-        public BlogTagService(IBlogTagRepository repository, IMapper mapper) : base(repository, mapper) { }
+        public BlogTagService(IBlogTagRepository repository, IMapper mapper, IBlogTagHateoas hateoas) : base(repository, mapper, hateoas) { }
 
         public IActionResult GetsByBlogId(Guid Id)
         {

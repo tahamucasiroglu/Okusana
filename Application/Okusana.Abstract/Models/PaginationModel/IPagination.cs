@@ -1,4 +1,4 @@
-﻿namespace Okusana.API.Models.PaginationModel
+﻿namespace Okusana.Abstract.Models.PaginationModel
 {
     public interface IPagination
     {
