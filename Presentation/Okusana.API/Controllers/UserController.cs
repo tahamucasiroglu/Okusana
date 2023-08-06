@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okusana.Abstract.Service;
 using Okusana.API.Attributes;
@@ -69,8 +70,14 @@ namespace Okusana.API.Controllers
         [ServiceFilter(typeof(LogConnectionAttribute))]
         public async Task<IActionResult> GetsByStatus([FromBody] StringRequestDTO Value) => new OkObjectResult( await service.GetsByStatusAsync(Value.Value));
 
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO Value) => new OkObjectResult(await service.LoginAsync(Value.Email, Value.Password));
 
-
+        [HttpGet("[action]")]
+        [AllowAnonymous]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> Logout([FromBody] LoginRequestDTO Value) => new OkObjectResult(await service.LogoutAsync());
 
 
 

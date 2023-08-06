@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
@@ -20,7 +22,7 @@ namespace Okusana.DbService.Concrete
 {
     public class CategoryService : AbstractService<Category, GetCategoryDTO, AddCategoryDTO, UpdateCategoryDTO>, ICategoryService
     {
-        public CategoryService(ICategoryRepository repository, IMapper mapper, ICategoryHateoas hateoas) : base(repository, mapper, hateoas) { }
+        public CategoryService(ICategoryRepository repository, IMapper mapper, ICategoryHateoas hateoas, IConfiguration configuration, IHttpContextAccessor httpContextAccessor) : base(repository, mapper, hateoas, configuration, httpContextAccessor) { }
 
         public IActionResult GetById(Guid Id)
         {

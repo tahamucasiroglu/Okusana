@@ -22,5 +22,7 @@ namespace Okusana.Abstract.Service
         public Task<IActionResult> GetByIdentityAsync(string Identity);
         public Task<IActionResult> GetsByBirthdateAsync(DateTime Birthdate);
         public Task<IActionResult> GetsByStatusAsync(string Status);
+        public Task<IActionResult> LoginAsync(string Email, string Password);
+        public Task<IActionResult> LogoutAsync();
     }
 }

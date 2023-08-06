@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
@@ -19,7 +21,7 @@ namespace Okusana.DbService.Concrete
 {
     public class SubCategoryService : AbstractService<SubCategory, GetSubCategoryDTO, AddSubCategoryDTO, UpdateSubCategoryDTO>, ISubCategoryService
     {
-        public SubCategoryService(ISubCategoryRepository repository, IMapper mapper, ISubCategoryHateoas hateoas) : base(repository, mapper, hateoas) { }
+        public SubCategoryService(ISubCategoryRepository repository, IMapper mapper, ISubCategoryHateoas hateoas, IConfiguration configuration, IHttpContextAccessor httpContextAccessor) : base(repository, mapper, hateoas, configuration, httpContextAccessor) { }
 
         public IActionResult GetsByCategoryId(Guid Id)
         {

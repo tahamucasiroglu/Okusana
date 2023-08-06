@@ -2,8 +2,8 @@
 {
     static public class UserStatus
     {
-        static public readonly string Admin = nameof(Admin);
-        static public readonly string Editor = nameof(Editor);
-        static public readonly string Member = nameof(Member);
+        public const string Admin = nameof(Admin);
+        public const string Editor = nameof(Editor);
+        public const string Member = nameof(Member);
     }
 }

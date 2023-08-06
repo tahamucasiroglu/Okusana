@@ -13,6 +13,8 @@ namespace Okusana.API.Extensions
 
             builder.Services.AddFluentValidationValidators(Assembly.GetExecutingAssembly());
 
+            builder.Services.AddHttpContextAccessor();
+
         }
 
         private static void AddFluentValidationValidators(this IServiceCollection services, Assembly assembly)

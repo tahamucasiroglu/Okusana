@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Okusana.Abstract.Models.HateoasModel;
 using Okusana.Abstract.Repository;
 using Okusana.Abstract.Service;
@@ -14,7 +16,7 @@ namespace Okusana.DbService.Concrete
 {
     public class BlogService : AbstractService<Blog, GetBlogDTO, AddBlogDTO, UpdateBlogDTO>, IBlogService
     {
-        public BlogService(IBlogRepository repository, IMapper mapper, IBlogHateoas hateoas) : base(repository, mapper, hateoas) { }
+        public BlogService(IBlogRepository repository, IMapper mapper, IBlogHateoas hateoas, IConfiguration configuration, IHttpContextAccessor httpContextAccessor) : base(repository, mapper, hateoas, configuration, httpContextAccessor) { }
 
         public IActionResult GetsByDate(DateTime date)
         {

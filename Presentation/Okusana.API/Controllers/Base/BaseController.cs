@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Okusana.Abstract.Service.Base;
+using Okusana.API.Attributes;
 using Okusana.API.Extensions;
 using Okusana.Constants;
 using Okusana.DTOs.Abstract;
@@ -24,7 +25,7 @@ namespace Okusana.API.Controllers.Base
             this.service= service;
         }
         [HttpGet("[action]")]
-
+        [ServiceFilter(typeof(LogConnectionAttribute))]
         public IActionResult GetAll()
         {
             return new OkObjectResult(service.GetAll());
@@ -40,7 +41,8 @@ namespace Okusana.API.Controllers.Base
             this.service = service;
         }
         [HttpPost("[action]")]
-        [Authorize(nameof(UserStatus.Member))]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        [Authorize(UserStatus.Admin)]
         public IActionResult Add([FromBody] TAdd survey)
         {
             return new OkObjectResult(ModelState.IsValid ? service.Add(survey) : ModelState.ReturnError());
@@ -57,7 +59,8 @@ namespace Okusana.API.Controllers.Base
             this.service = service;
         }
         [HttpPut("[action]")]
-        [Authorize(nameof(UserStatus.Member))]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        [Authorize(UserStatus.Admin)]
         public IActionResult Update([FromBody] TUpdate survey)
         {
             return new OkObjectResult(ModelState.IsValid ? service.Update(survey) : ModelState.ReturnError());
@@ -72,7 +75,8 @@ namespace Okusana.API.Controllers.Base
         public BaseController(IService<TGet, TAdd, TUpdate> service) : base(service) { }
 
         [HttpDelete("[action]")]
-        [Authorize(nameof(UserStatus.Member))]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        [Authorize(UserStatus.Admin)]
         public IActionResult Delete([FromBody] TDelete survey)
         {
             return new OkObjectResult(ModelState.IsValid ? service.Delete(survey.Id) : ModelState.ReturnError());

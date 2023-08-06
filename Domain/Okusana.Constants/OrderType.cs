@@ -8,9 +8,9 @@ namespace Okusana.Constants
 {
     static public class OrderType
     {
-        static public readonly string StartDate = nameof(StartDate);
-        static public readonly string RezerveStartDate = nameof(RezerveStartDate);
-        static public readonly string Rate = nameof(Rate);
-        static public readonly string RezerveRate = nameof(RezerveRate);
+        public const string StartDate = nameof(StartDate);
+        public const string RezerveStartDate = nameof(RezerveStartDate);
+        public const string Rate = nameof(Rate);
+        public const string RezerveRate = nameof(RezerveRate);
     }
 }

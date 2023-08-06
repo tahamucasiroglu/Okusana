@@ -5,6 +5,9 @@ internal class Program
     private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.AddCookies(); //Extension
+        builder.AddPolicy(); //Extension
+        builder.AddJWT(); //Extension
         builder.AddDb(); //Extension
         builder.AddDependencyInjections(); //Extension
         builder.AddScoped(); //Extension
