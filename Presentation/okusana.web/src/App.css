@@ -92,3 +92,162 @@ a {
 .devaminioku:hover {
     background-color: orangered;
 }
+
+
+
+html404 {
+    overflow: hidden;
+    font-family: FSEX300;
+    font-style: normal;
+    font-stretch: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: baseline;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    background: #0e7c7c;
+    font-size: 14px;
+}
+
+body404,
+html404 {
+    width: 100%;
+    height: 100%;
+}
+
+.banner,
+.content,
+body404 {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+._s {
+    border-color: #fff #757575 #757575 #fff;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: -1px -1px 0 0 #dadada, -1px 0 0 0 #dadada, 0 -1px 0 0 #dadada, 1px 1px 0 0 #000, -1px 1px 0 0 #000, 1px -1px 0 0 #000;
+}
+
+.error {
+    width: 300px;
+    background: #c1c1c1;
+    padding: 1px;
+}
+
+.banner {
+    line-height: 20px;
+    height: 20px;
+    padding-left: 8px;
+    color: #fff;
+    background: linear-gradient(left, #04056e, #157cda);
+    background: -webkit-linear-gradient(left, #04056e, #157cda);
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.close {
+    position: relative;
+    margin: 3px;
+    background: #c1c1c1;
+    height: 14px;
+    width: 16px;
+    cursor: pointer;
+}
+
+    .close::before,
+    .close::after {
+        position: absolute;
+        top: 5px;
+        left: 1px;
+        content: "";
+        width: 12px;
+        height: 1px;
+        background: grey;
+    }
+
+    .close::before {
+        box-shadow: 0 1px 0 #fff;
+        transform: rotate(-45deg);
+    }
+
+    .close::after {
+        box-shadow: 1px 0 0 #fff;
+        transform: rotate(45deg);
+    }
+
+.content {
+    font-size: 14px;
+    padding: 12px;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.redX {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    border: 1px solid #000;
+    box-shadow: 2px 2px 0 0 #757575;
+    border-radius: 9rem;
+    background: #ff0004;
+}
+
+    .redX::before,
+    .redX::after {
+        position: absolute;
+        top: 13px;
+        left: 5px;
+        content: "";
+        width: 18px;
+        height: 2px;
+        background: #fff;
+    }
+
+    .redX::before {
+        transform: rotate(-45deg);
+    }
+
+    .redX::after {
+        transform: rotate(45deg);
+    }
+
+.text {
+    text-align: center;
+}
+
+.text {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    padding: 0 14px;
+    width: 242px;
+}
+
+.btn {
+    font-size: 14px;
+    width: 75px;
+    height: 20px;
+    margin-top: 12px;
+    text-align: center;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.dash {
+    border: 1px dotted #000;
+}

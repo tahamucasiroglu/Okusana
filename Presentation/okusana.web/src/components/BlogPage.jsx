@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import sha256 from 'crypto-js/sha256';
 
-function BlogPage({ blog }) {
+function BlogPage({ blogId }) {
     console.log("blog sayfası");
   return (
-      <p>{ blog.title}</p>
+      <p>{ blogId } idli blog</p>
   );
 }
 

@@ -6,7 +6,7 @@ import CategoryPage from './CategoryPage';
 import SubCategoryPage from './SubCategoryPage';
 import BlogPage from './BlogPage';
 
-function Header() {
+function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
 
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
@@ -43,13 +43,14 @@ function Header() {
         setShowSubCategories((prev) => ({ ...prev, [categoryId]: false }));
     };
 
+    const selectCategory = (categoryId) => { setcategoryId(categoryId); setsubCategoryId(null); setBlogId(null) }
+    const selectSubCategory = (categoryId) => { setcategoryId(null); setsubCategoryId(categoryId); setBlogId(null)}
 
     return (
-        <Router>
             <header>
                 <div className="App-header">
                     {/*<h1>Kategori Listesi</h1>*/}
-                    <div className= "categories-container">
+                    <div className="categories-container">
                         {categories.map((category, count) => {
                             const categoryId = category.id;
                             const filteredSubCategories = subCategories.filter(
@@ -64,17 +65,17 @@ function Header() {
                                     onMouseLeave={() => handleMouseLeave(categoryId)}
                                 >
                                     <span>
-                                        <Link key={category.id} to={`category/${count}/*`}>
+                                        <button onClick={selectCategory(category.id)}>
                                             {category.name}
-                                        </Link>
+                                        </button>
                                     </span>
                                     {showSubCategories[categoryId] && (
                                         <ul className="sub-categories">
                                             {filteredSubCategories.map((subCategory, subcount) => (
                                                 <li key={subCategory.id}>
-                                                    <Link key={category.id} to={`subcategory/${subcount}/*`}>
+                                                    <button onClick={selectSubCategory(subCategory.id)}>
                                                         {subCategory.name}
-                                                    </Link>
+                                                    </button>
                                                 </li>
                                             ))}
                                         </ul>
@@ -85,27 +86,70 @@ function Header() {
                     </div>
                 </div>
             </header>
-            <Routes>
-                {categories.map((category, count) => {
-                    const routeProps = {
-                        key: category.id,
-                        path: `category/${count}/*`,
-                        element: <CategoryPage categoryId={category.id} categoryName={category.name} />,
-                    };
-
-                    return <Route {...routeProps} />;
-                })}
-                {subCategories.map((subCategory, subcount) => {
-                    const routeProps = {
-                        key: subCategory.id,
-                        path: `subcategory/${subcount}/*`,
-                        element: <SubCategoryPage subCategoryId={subCategory.id} subCategoryName={subCategory.name} />,
-                    };
-                    return <Route {...routeProps} />;
-                })}
-            </Routes>
-        </Router>
     );
+
+    //return (
+    //    <Router>
+    //        <header>
+    //            <div className="App-header">
+    //                {/*<h1>Kategori Listesi</h1>*/}
+    //                <div className= "categories-container">
+    //                    {categories.map((category, count) => {
+    //                        const categoryId = category.id;
+    //                        const filteredSubCategories = subCategories.filter(
+    //                            (subCategory) => subCategory.categoryId === categoryId
+    //                        );
+
+    //                        return (
+    //                            <div
+    //                                className="category"
+    //                                key={category.id}
+    //                                onMouseEnter={() => handleMouseEnter(categoryId)}
+    //                                onMouseLeave={() => handleMouseLeave(categoryId)}
+    //                            >
+    //                                <span>
+    //                                    <Link key={category.id} to={`category/${count}/*`}>
+    //                                        {category.name}
+    //                                    </Link>
+    //                                </span>
+    //                                {showSubCategories[categoryId] && (
+    //                                    <ul className="sub-categories">
+    //                                        {filteredSubCategories.map((subCategory, subcount) => (
+    //                                            <li key={subCategory.id}>
+    //                                                <Link key={category.id} to={`subcategory/${subcount}/*`}>
+    //                                                    {subCategory.name}
+    //                                                </Link>
+    //                                            </li>
+    //                                        ))}
+    //                                    </ul>
+    //                                )}
+    //                            </div>
+    //                        );
+    //                    })}
+    //                </div>
+    //            </div>
+    //        </header>
+    //        <Routes>
+    //            {categories.map((category, count) => {
+    //                const routeProps = {
+    //                    key: category.id,
+    //                    path: `category/${count}/*`,
+    //                    element: <CategoryPage categoryId={category.id} categoryName={category.name} />,
+    //                };
+
+    //                return <Route {...routeProps} />;
+    //            })}
+    //            {subCategories.map((subCategory, subcount) => {
+    //                const routeProps = {
+    //                    key: subCategory.id,
+    //                    path: `subcategory/${subcount}/*`,
+    //                    element: <SubCategoryPage subCategoryId={subCategory.id} subCategoryName={subCategory.name} />,
+    //                };
+    //                return <Route {...routeProps} />;
+    //            })}
+    //        </Routes>
+    //    </Router>
+    //);
 
 }
 

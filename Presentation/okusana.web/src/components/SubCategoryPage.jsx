@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import BlogPage from './BlogPage';
 
-const SubCategoryPage = ({ subCategoryId, subCategoryName }) => {
+const SubCategoryPage = ({ subCategoryId, setcategoryId, setsubCategoryId, setBlogId }) => {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
@@ -33,42 +33,72 @@ const SubCategoryPage = ({ subCategoryId, subCategoryName }) => {
         fetchBlogs();
     }, [subCategoryId]);
 
+    const setBlog = (blogId) => { setBlogId(blogId); setcategoryId(null); setsubCategoryId(null); }
+
     return (
-            <div>
-                {blogs.map((blog, count) => (
-                    <Box key={blog.id} sx={{ minWidth: 275 }}>
-                        <Card variant="outlined">
-                            <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Kullanıcı Id (degisecek ismi gelecek) = {blog.userId}
-                                </Typography>
-                                <Typography variant="h5" component="div">
-                                    {blog.title}
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    {blog.content.length > 100 ? `${blog.content.substring(0, 100)}...` : blog.content}
-                                </Typography>
-                            </CardContent>
-                            <div className="devaminioku">
-                                {/*<Link key={blog.id} to={`${sha256(blog.name + blog.id)}`}>*/}
-                                <Link key={blog.id} to={`blog/${count}`}>
-                                    Devamını Oku
-                                </Link>
-                            </div>
-                        </Card>
-                    </Box>
-                ))}
-            <Routes>
-                {blogs.map((blog, count) => (
-                    <Route
-                        key={blog.id}
-                        path={`blog/${count}`}
-                        element={<BlogPage blog={blog} />}
-                    />
-                ))}
-            </Routes>
-            </div>
+        <div>
+            {blogs.map((blog, count) => (
+                <Box key={blog.id} sx={{ minWidth: 275 }}>
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                Kullanıcı Id (degisecek ismi gelecek) = {blog.userId}
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                                {blog.title}
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                {blog.content.length > 100 ? `${blog.content.substring(0, 100)}...` : blog.content}
+                            </Typography>
+                        </CardContent>
+                        <div className="devaminioku">
+                            {/*<Link key={blog.id} to={`${sha256(blog.name + blog.id)}`}>*/}
+                            <button onClick={setBlog(blog.id)}>
+                                Devamını Oku
+                            </button>
+                        </div>
+                    </Card>
+                </Box>
+            ))}
+        </div>
     );
+
+    //return (
+    //        <div>
+    //            {blogs.map((blog, count) => (
+    //                <Box key={blog.id} sx={{ minWidth: 275 }}>
+    //                    <Card variant="outlined">
+    //                        <CardContent>
+    //                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+    //                                Kullanıcı Id (degisecek ismi gelecek) = {blog.userId}
+    //                            </Typography>
+    //                            <Typography variant="h5" component="div">
+    //                                {blog.title}
+    //                            </Typography>
+    //                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+    //                                {blog.content.length > 100 ? `${blog.content.substring(0, 100)}...` : blog.content}
+    //                            </Typography>
+    //                        </CardContent>
+    //                        <div className="devaminioku">
+    //                            {/*<Link key={blog.id} to={`${sha256(blog.name + blog.id)}`}>*/}
+    //                            <Link key={blog.id} to={`blog/${count}`}>
+    //                                Devamını Oku
+    //                            </Link>
+    //                        </div>
+    //                    </Card>
+    //                </Box>
+    //            ))}
+    //        <Routes>
+    //            {blogs.map((blog, count) => (
+    //                <Route
+    //                    key={blog.id}
+    //                    path={`blog/${count}`}
+    //                    element={<BlogPage blog={blog} />}
+    //                />
+    //            ))}
+    //        </Routes>
+    //        </div>
+    //);
 };
 
 export default SubCategoryPage;
