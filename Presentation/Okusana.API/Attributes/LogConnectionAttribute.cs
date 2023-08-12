@@ -15,6 +15,7 @@ namespace Okusana.API.Attributes
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             string message = "";
+            message += $"Date = {DateTime.Now}" + "\n";
             message += $" Host = {context.HttpContext.Request.Host.Host} \n";
             message += $" Port = {context.HttpContext.Request.Host.Port} \n";
             message += $" Response Code = {context.HttpContext.Response.StatusCode} \n";

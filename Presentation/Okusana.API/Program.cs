@@ -12,6 +12,8 @@ internal class Program
         builder.AddDependencyInjections(); //Extension
         builder.AddScoped(); //Extension
         builder.AddSingleton(); //Extension
+        //builder.SetCors(); //Extension
+        builder.SetAnyCors(); //Extension
         // Add services to the container.
 
         builder.Services.AddControllers();
@@ -25,14 +27,17 @@ internal class Program
         app.UsePathBase("/");
 
 
-        await app.RestartDb(); //Extension
-        await app.SeedDb(); //Extension
+        //await app.RestartDb(); //Extension
+        //await app.SeedDb(); //Extension
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        //app.UseCors("AllowLocalhost5173");
+        //app.UseCors("AllowLocalhost3000");
+        app.UseCors("Any");
 
         app.UseHttpsRedirection();
 

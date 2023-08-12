@@ -43,9 +43,11 @@ namespace Okusana.DbService.Concrete
         }
 
 
-        public IActionResult GetLasts(int count)
+        public IActionResult GetsLasts(int count)
         {
-            IReturnModel<IEnumerable<Blog>> result = repository.GetAll(^0..^count);
+            IReturnModel<int> repositoryCount = repository.Count();
+            if (repositoryCount.Data == 0 || !repositoryCount.Status) return EmptyDataReturn<GetBlogDTO, IEnumerable<Blog>>();
+            IReturnModel<IEnumerable<Blog>> result = repository.GetAll(e => e.CreateDate, (repositoryCount.Data - count)..repositoryCount.Data);
             return ConvertToReturn<GetBlogDTO, Blog>(result, mapper, hateoas);
         }
 
@@ -74,14 +76,36 @@ namespace Okusana.DbService.Concrete
         }
 
 
-        public async Task<IActionResult> GetLastsAsync(int count)
+        public async Task<IActionResult> GetsLastsAsync(int count)
         {
-            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(^0..^count);
+            IReturnModel<int> repositoryCount = await repository.CountAsync();
+            if (repositoryCount.Data == 0 || !repositoryCount.Status) return EmptyDataReturn<GetBlogDTO, IEnumerable<Blog>>();
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(e => e.CreateDate, (repositoryCount.Data-count)..repositoryCount.Data);
             return ConvertToReturn<GetBlogDTO, Blog>(result, mapper, hateoas);
         }
 
+        public IActionResult GetsByCategoryId(Guid Id)
+        {
+            IReturnModel<IEnumerable<Blog>> result = repository.GetAll(e => e.SubCategory.CategoryId == Id);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper, hateoas);
+        }
 
+        public async Task<IActionResult> GetsByCategoryIdAsync(Guid Id)
+        {
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(e => e.SubCategory.CategoryId == Id);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper, hateoas);
+        }
 
+        public IActionResult GetsSubByCategoryId(Guid Id)
+        {
+            IReturnModel<IEnumerable<Blog>> result = repository.GetAll(e => e.SubCategoryId == Id);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper, hateoas);
+        }
 
+        public async Task<IActionResult> GetsSubByCategoryIdAsync(Guid Id)
+        {
+            IReturnModel<IEnumerable<Blog>> result = await repository.GetAllAsync(e => e.SubCategoryId == Id);
+            return ConvertToReturn<GetBlogDTO, Blog>(result, mapper, hateoas);
+        }
     }
 }

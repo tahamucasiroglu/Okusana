@@ -26,9 +26,9 @@ namespace Okusana.API.Controllers.Base
         }
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return new OkObjectResult(service.GetAll());
+            return new OkObjectResult(await service.GetAllAsync());
         }
     }
     abstract public class BaseController<TGet, TAdd> : BaseController<TGet>, IBaseController<TAdd>
@@ -43,9 +43,9 @@ namespace Okusana.API.Controllers.Base
         [HttpPost("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
         [Authorize(UserStatus.Admin)]
-        public IActionResult Add([FromBody] TAdd survey)
+        public async Task<IActionResult> Add([FromBody] TAdd survey)
         {
-            return new OkObjectResult(ModelState.IsValid ? service.Add(survey) : ModelState.ReturnError());
+            return new OkObjectResult(ModelState.IsValid ? await service.AddAsync(survey) : ModelState.ReturnError());
         }
     }
     abstract public class BaseController<TGet, TAdd, TUpdate> : BaseController<TGet, TAdd>, IBaseController<TAdd, TUpdate>
@@ -61,9 +61,9 @@ namespace Okusana.API.Controllers.Base
         [HttpPut("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
         [Authorize(UserStatus.Admin)]
-        public IActionResult Update([FromBody] TUpdate survey)
+        public async Task<IActionResult> Update([FromBody] TUpdate survey)
         {
-            return new OkObjectResult(ModelState.IsValid ? service.Update(survey) : ModelState.ReturnError());
+            return new OkObjectResult(ModelState.IsValid ? await service.UpdateAsync(survey) : ModelState.ReturnError());
         }
     }
     abstract public class BaseController<TGet, TAdd, TUpdate, TDelete> : BaseController<TGet, TAdd, TUpdate>, IBaseController<TAdd, TUpdate, TDelete>
@@ -77,9 +77,9 @@ namespace Okusana.API.Controllers.Base
         [HttpDelete("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
         [Authorize(UserStatus.Admin)]
-        public IActionResult Delete([FromBody] TDelete survey)
+        public async Task<IActionResult> Delete([FromBody] TDelete survey)
         {
-            return new OkObjectResult(ModelState.IsValid ? service.Delete(survey.Id) : ModelState.ReturnError());
+            return new OkObjectResult(ModelState.IsValid ? await service.DeleteAsync(survey.Id) : ModelState.ReturnError());
         }
     }
 }

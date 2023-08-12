@@ -63,7 +63,23 @@ namespace Okusana.API.Controllers
 
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
-        public async Task<IActionResult> GetLasts([FromBody] IntRequestDTO Value) => new OkObjectResult(await service.GetLastsAsync(Value.Value));
+        public async Task<IActionResult> GetLasts([FromQuery] int Value) => new OkObjectResult(await service.GetsLastsAsync(Value));
+
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public async Task<IActionResult> GetByCategoryId([FromBody] GuidRequestDTO Value) => new OkObjectResult(await service.GetsByCategoryIdAsync(Value.Value));
+
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> GetByCategoryId([FromQuery] Guid Value) => new OkObjectResult(await service.GetsByCategoryIdAsync(Value));
+
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public async Task<IActionResult> GetBySubCategoryId([FromBody] GuidRequestDTO Value) => new OkObjectResult(await service.GetsSubByCategoryIdAsync(Value.Value));
+
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(LogConnectionAttribute))]
+        public async Task<IActionResult> GetBySubCategoryId([FromQuery] Guid Value) => new OkObjectResult(await service.GetsSubByCategoryIdAsync(Value));
 
 
     }

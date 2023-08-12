@@ -11,13 +11,16 @@ namespace Okusana.Abstract.Service
         public IActionResult GetsByDateRange(DateTime startDate, DateTime endDate);
         public IActionResult Search(string Text);
         public IActionResult GetById(Guid Id);
-        public IActionResult GetLasts(int count);
+        public IActionResult GetsLasts(int count);
+        public IActionResult GetsByCategoryId(Guid Id);
+        public IActionResult GetsSubByCategoryId(Guid Id);
 
         public Task<IActionResult> GetsByDateAsync(DateTime date);
         public Task<IActionResult> GetsByDateRangeAsync(DateTime startDate, DateTime endDate);
         public Task<IActionResult> SearchAsync(string Text);
         public Task<IActionResult> GetByIdAsync(Guid Id);
-        public Task<IActionResult> GetLastsAsync(int count);
-
+        public Task<IActionResult> GetsLastsAsync(int count);
+        public Task<IActionResult> GetsByCategoryIdAsync(Guid Id);
+        public Task<IActionResult> GetsSubByCategoryIdAsync(Guid Id);
     }
 }

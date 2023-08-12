@@ -24,6 +24,11 @@ namespace Okusana.DbService.Concrete
     {
         public CategoryService(ICategoryRepository repository, IMapper mapper, ICategoryHateoas hateoas, IConfiguration configuration, IHttpContextAccessor httpContextAccessor) : base(repository, mapper, hateoas, configuration, httpContextAccessor) { }
 
+        public override Task<IActionResult> GetAllAsync()
+        {
+            return base.GetAllAsync();
+        }
+
         public IActionResult GetById(Guid Id)
         {
             IReturnModel<Category> result = repository.Get(e => e.Id == Id);
