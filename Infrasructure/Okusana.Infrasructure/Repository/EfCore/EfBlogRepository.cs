@@ -9,5 +9,6 @@ namespace Okusana.Infrasructure.Repository.EfCore
     public class EfBlogRepository : AbstractRepository<Blog, OkusanaPgContext>, IBlogRepository
     {
         public EfBlogRepository(OkusanaPgContext context) : base(context) { }
+
     }
 }

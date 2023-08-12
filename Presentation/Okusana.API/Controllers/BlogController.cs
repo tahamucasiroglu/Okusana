@@ -61,10 +61,12 @@ namespace Okusana.API.Controllers
         [ServiceFilter(typeof(LogConnectionAttribute))]
         public async Task<IActionResult> Search([FromBody] StringRequestDTO Value) => new OkObjectResult(await service.SearchAsync(Value.Value));
 
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public async Task<IActionResult> GetLasts([FromQuery] int Value) => new OkObjectResult(await service.GetsLastsAsync(Value));
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
         public async Task<IActionResult> GetLasts([FromQuery] int Value) => new OkObjectResult(await service.GetsLastsAsync(Value));
-
         //[HttpGet("[action]")]
         //[ServiceFilter(typeof(LogConnectionAttribute))]
         //public async Task<IActionResult> GetByCategoryId([FromBody] GuidRequestDTO Value) => new OkObjectResult(await service.GetsByCategoryIdAsync(Value.Value));

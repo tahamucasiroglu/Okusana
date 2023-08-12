@@ -20,7 +20,7 @@ namespace Okusana.Abstract.Service.Base
         where AddRequest : class, IAddDTO
     { }
 
-    public interface IService //marker
+    public interface IService : IDisposable //marker
     { }
 
     public interface _IServiceGetAll<Response> where Response : class, IGetDTO

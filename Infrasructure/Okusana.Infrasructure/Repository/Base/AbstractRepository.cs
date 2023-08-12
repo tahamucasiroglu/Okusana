@@ -134,6 +134,11 @@ namespace Okusana.Infrasructure.Repository.Base
             return await SaveAsync(entity);
         }
 
+        public void Dispose()
+        {
+            context.Dispose();
+        }
+
         public IReturnModel<TEntityCore> Get(Expression<Func<TEntityCore, bool>> filter)
         {
             var result = context.Set<TEntityCore>().AsNoTracking().FirstOrDefault(filter);

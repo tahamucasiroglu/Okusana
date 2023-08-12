@@ -28,7 +28,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Okusana.DbService.Base
 {
-    abstract public class AbstractService : IService
+    abstract public class AbstractService
     {
         public IActionResult EmptyDataReturn<TCheck, TEntity>(string? Message = null, IHateoas? IHateoas = null, IPagination? pagination = null) => new OkObjectResult(new Response<TCheck>(new SuccessReturnModel<TCheck>("Data is null " + Message), "Başarıyla döndürme sağlandı fakat data null", IHateoas, pagination));
         public IActionResult EmptyDataReturn(string? Message = null, IHateoas? IHateoas = null, IPagination? pagination = null) => new OkObjectResult(new Response( "Başarıyla döndürme sağlandı fakat data null <->" + Message, IHateoas, pagination));
@@ -119,7 +119,7 @@ namespace Okusana.DbService.Base
 
 
 
-    abstract public class AbstractService<TEntity> : AbstractService
+    abstract public class AbstractService<TEntity> : AbstractService, IService
         where TEntity : class, IEntity, new()
     {
         internal readonly IRepository<TEntity> repository;
@@ -134,6 +134,11 @@ namespace Okusana.DbService.Base
             this.hateoas = hateoas;
             this.configuration = configuration;
             this.httpContextAccessor = httpContextAccessor;
+        }
+
+        public void Dispose()
+        {
+            repository.Dispose();
         }
 
         internal async Task<IReturnModel<GetTokenResponseDTO>> GenerateTokenWithSingIn(string Email, string Status)

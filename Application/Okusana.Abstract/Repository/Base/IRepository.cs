@@ -55,7 +55,7 @@ namespace Okusana.Abstract.Repository.Base
 
 
 
-    public interface IRepositoryCore<T> where T : class, IEntityCore, new()
+    public interface IRepositoryCore<T> : IDisposable where T : class, IEntityCore, new()
     {
         public IReturnModel<T> Get(Expression<Func<T, bool>> filter);
         public Task<IReturnModel<T>> GetAsync(Expression<Func<T, bool>> filter);
