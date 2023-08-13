@@ -48,7 +48,7 @@ function MainPage({ setBlogId }) {
                             </Typography>
                         </CardContent>
                         <div className="devaminioku">
-                            <button onClick={setBlogId(blog.id)}>
+                            <button onClick={() => setBlogId(blog.id)}>
                                 Devamını Oku
                             </button>
                         </div>

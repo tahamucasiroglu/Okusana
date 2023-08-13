@@ -53,7 +53,7 @@ const SubCategoryPage = ({ subCategoryId, setcategoryId, setsubCategoryId, setBl
                         </CardContent>
                         <div className="devaminioku">
                             {/*<Link key={blog.id} to={`${sha256(blog.name + blog.id)}`}>*/}
-                            <button onClick={setBlog(blog.id)}>
+                            <button onClick={() => setBlog(blog.id)}>
                                 Devamını Oku
                             </button>
                         </div>

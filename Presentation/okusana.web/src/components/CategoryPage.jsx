@@ -53,7 +53,7 @@ const CategoryPage = ({ categoryId, setcategoryId, setsubCategoryId, setBlogId }
                             </Typography>
                         </CardContent>
                         <div className="devaminioku">
-                            <button onClick={setBlog(blog.id)}>
+                            <button onClick={() => setBlog(blog.id)}>
                                 Devamını Oku
                             </button>
                         </div>

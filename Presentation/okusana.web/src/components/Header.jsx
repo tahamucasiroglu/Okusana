@@ -65,7 +65,7 @@ function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
                                     onMouseLeave={() => handleMouseLeave(categoryId)}
                                 >
                                     <span>
-                                        <button onClick={selectCategory(category.id)}>
+                                        <button onClick={() => selectCategory(category.id)}>
                                             {category.name}
                                         </button>
                                     </span>
@@ -73,7 +73,7 @@ function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
                                         <ul className="sub-categories">
                                             {filteredSubCategories.map((subCategory, subcount) => (
                                                 <li key={subCategory.id}>
-                                                    <button onClick={selectSubCategory(subCategory.id)}>
+                                                    <button onClick={() => selectSubCategory(subCategory.id)}>
                                                         {subCategory.name}
                                                     </button>
                                                 </li>

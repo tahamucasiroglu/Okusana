@@ -13,11 +13,6 @@ function App() {
     const [blogId, setBlogId] = useState(null);
 
 
-
-
-
-
-
   return (
     <div className="App">
           <Header setcategoryId={setcategoryId} setsubCategoryId={setsubCategoryId} setBlogId={setBlogId} />
