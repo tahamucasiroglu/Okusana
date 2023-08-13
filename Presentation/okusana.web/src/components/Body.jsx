@@ -4,7 +4,7 @@ import CategoryPage from './CategoryPage';
 import MainPage from './MainPage';
 import SubCategoryPage from './SubCategoryPage';
 
-function Body({ categoryId, subCategoryId, setBlogId, blogId ,setcategoryId, setsubCategoryId, }) {
+function Body({ categoryId, subCategoryId, setBlogId, blogId, setcategoryId, setsubCategoryId, setSubCategories, subCategories }) {
 
 
     if (categoryId === null && subCategoryId === null && blogId === null) {
@@ -13,7 +13,7 @@ function Body({ categoryId, subCategoryId, setBlogId, blogId ,setcategoryId, set
         return (<BlogPage blogId={blogId} />);
     }
     else if (subCategoryId !== null) {
-        return (<SubCategoryPage subCategoryId={subCategoryId} setcategoryId={setcategoryId} setsubCategoryId={setsubCategoryId} setBlogId={setBlogId} />);
+        return (<SubCategoryPage subCategoryId={subCategoryId} setcategoryId={setcategoryId} setsubCategoryId={setsubCategoryId} setBlogId={setBlogId} subCategories={subCategories} setSubCategories={setSubCategories} />);
     }
     else if (categoryId !== null) {
         return (<CategoryPage categoryId={categoryId} setcategoryId={setcategoryId} setsubCategoryId={setsubCategoryId} setBlogId={setBlogId} />);

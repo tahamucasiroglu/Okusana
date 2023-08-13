@@ -78,6 +78,36 @@ a {
     top: 0;
 }
 
+.category button {
+    background-color: #444; /* Arkaplan rengi */
+    color: white; /* Yazı rengi */
+    padding: 10px 20px; /* Buton içi boşluk */
+    border: none; /* Kenarlık yok */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Geçiş efekti */
+}
+    .category button:visited,
+    .category button:focus,
+    .category button:active,
+    .category button:hover {
+        background-color: orange; /* Butona hover olduğunda arkaplan rengi */
+        color: black; /* Yazı rengi */
+    }
+
+/* Alt kategori butonları için stil */
+.sub-categories button {
+    background-color: #555;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .sub-categories button:hover {
+        background-color: orange;
+        color: black;
+    }
 
 .black{
     background-color: black;
@@ -250,4 +280,43 @@ body404 {
 
 .dash {
     border: 1px dotted #000;
+}
+
+/* BlogPage.css */
+.blog-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+    .blog-page h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .blog-page p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+.author-info {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Sidebar.css */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+.activeCategory.active {
+    /* Etkinleştirilmiş durumun CSS özelliklerini burada tanımlayabilirsiniz */
+    background-color: yellow;
+    /* Diğer stil ayarları */
 }

@@ -46,9 +46,13 @@ namespace Okusana.API.Controllers
         //public IActionResult GetsByStatus([FromBody] StringRequestDTO Value) => new OkObjectResult(service.GetsByStatus(Value.Value));
         #endregion
 
+        //[HttpGet("[action]")]
+        //[ServiceFilter(typeof(LogConnectionAttribute))]
+        //public async Task<IActionResult> GetById([FromBody] GuidRequestDTO Value) => new OkObjectResult( await service.GetByIdAsync(Value.Value));
+
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]
-        public async Task<IActionResult> GetById([FromBody] GuidRequestDTO Value) => new OkObjectResult( await service.GetByIdAsync(Value.Value));
+        public async Task<IActionResult> GetById([FromQuery] Guid Value) => new OkObjectResult(await service.GetByIdAsync(Value));
 
         [HttpGet("[action]")]
         [ServiceFilter(typeof(LogConnectionAttribute))]

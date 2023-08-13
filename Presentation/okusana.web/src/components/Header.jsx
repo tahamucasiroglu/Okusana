@@ -1,4 +1,4 @@
-import sha256 from 'crypto-js/sha256';
+ï»¿import sha256 from 'crypto-js/sha256';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -18,7 +18,7 @@ function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
                 const response = await axios.get('https://localhost:7228/api/Category/GetAll');
                 setCategories(response.data.value.data.data);
             } catch (error) {
-                console.error('Kategori verileri alýnýrken hata oluþtu:', error);
+                console.error('Kategori verileri alÄ±nÄ±rken hata oluÅŸtu:', error);
             }
         };
 
@@ -27,7 +27,7 @@ function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
                 const response = await axios.get('https://localhost:7228/api/SubCategory/GetAll');
                 setSubCategories(response.data.value.data.data);
             } catch (error) {
-                console.error('Alt kategori verileri alýnýrken hata oluþtu:', error);
+                console.error('Alt kategori verileri alÄ±nÄ±rken hata oluÅŸtu:', error);
             }
         };
 
@@ -49,7 +49,6 @@ function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
     return (
             <header>
                 <div className="App-header">
-                    {/*<h1>Kategori Listesi</h1>*/}
                     <div className="categories-container">
                         {categories.map((category, count) => {
                             const categoryId = category.id;
@@ -83,6 +82,18 @@ function Header({ setcategoryId, setsubCategoryId, setBlogId }) {
                                 </div>
                             );
                         })}
+                    <div>
+                        <span>
+                            <button onClick={''}>
+                                GiriÅŸ Yap
+                            </button>
+                        </span>
+                        <span>
+                            <button onClick={''}>
+                                Ãœye Ol
+                            </button>
+                        </span>
+                    </div>
                     </div>
                 </div>
             </header>
