@@ -1,78 +1,78 @@
-# Proje Notları
+# Proje NotlarÄ±
 
 
 fluent validation attribute oluyor
 
 
 
-blog ve diğerlerindeki dönüşlerde sayfalama ekle. 
-Çoklu sınıf yapısına bak yani actionlara yanlarına PagenatiopnModel gibi ekleme olur mu bak
+blog ve diÄŸerlerindeki dÃ¶nÃ¼ÅŸlerde sayfalama ekle. 
+Ã‡oklu sÄ±nÄ±f yapÄ±sÄ±na bak yani actionlara yanlarÄ±na PagenatiopnModel gibi ekleme olur mu bak
 
 
-basede authorize ekledin onun configlerini ayarla test et sonra sikir git FE yap arayüz yok elde
+basede authorize ekledin onun configlerini ayarla test et sonra git FE yap arayÃ¼z yok elde
 
 ### Notlar
 
 * dotnet ef migrations add 1_test_mig -> migleme
 * dotnet ef database update -> push db
-* <del>min pool size 0 olmamalı hata veriyor nedene bakarsın</del>
-* IsRequired lar galiba zaten true onları kladır olmadı şimdilik garanti için kalsın
+* <del>min pool size 0 olmamalÄ± hata veriyor nedene bakarsÄ±n</del>
+* IsRequired lar galiba zaten true onlarÄ± kladÄ±r olmadÄ± ÅŸimdilik garanti iÃ§in kalsÄ±n
 
-### Yapılacaklar
+### YapÄ±lacaklar
 
 * entitler doldurulacaklar.
-* entitlere configleri hazırla ve index hasdata totable gibi şeyleri detaylıca hazırla
+* entitlere configleri hazÄ±rla ve index hasdata totable gibi ÅŸeyleri detaylÄ±ca hazÄ±rla
 * <del> Idler guid oalcak </del>
-* kategory - user - userstatus - blog - ekle ek olarak tıklama sayısı fantazi  istersek apriori algosu filan eklenebilir.
-* az öz fonsiyon olmalı
-* admin için post ekleme sayfası
-* mvvm kullanmaya çalış
-* postgresql vs sql server farklarını araştır
-* dokğmanlarda ef core ile ilgili araştırmaları yap
-* gençayın videoları bak
-* JWT kısmını düşün
-* DB için kontrolleri yap ve sürekli geliştirme hazırla orası en dertli yer
-* fluent validation yap attributeleri turkcell kullanmıyor oraya uyum sağlamalısın. Attribute ikna ettin ama fluent olmalı kullanrak yapman lazım ben mimar değilim. Henüz :D
-* react js dalınacak fakat önce BE sonra komple FE girilecek ve tükürülen yalanacak 
-* tıklamalarda istatistik kullanılabbilir şu ilden şu yaştan şu kadar giriş gibi sonra olur bu
-* blog eklemede resim ekleme, belirli tarihte ekleme, yazı tipi ayarlamaları, gibi wordpress şeyleri yap hatta wordpress ile yapılan blog sitesi gibi admin editör ve kullanıcı kısmı yap.
-* bloglarda IsRequired zaten true muş onlara bak sonarcube de hata vermese bile git test et olmadı kaldır gereksiz kod
-* postgresql in içinde bir sürü farklılıklar var sql server a göre bak sonra ona göre optimize et 
-* bloglarda publicationDate için kontrol ekle işte vakti gelince yayınlasın ama burası nasıl olacak hangfire yapar mı bilemedinm.
-* db de userid gibi şeyleri ef kendi ayarlıyor onları ilerde kaldır şimdi karışacak kalsın
-* yorumlarıda recursive yap yoruma yorum yapsınlar
-* bazı yerlerde view eklebilir
-* BlogTag için ol ara sistemde Core lar ile çalışılması lazım bakın
+* kategory - user - userstatus - blog - ekle ek olarak tÄ±klama sayÄ±sÄ± fantazi  istersek apriori algosu filan eklenebilir.
+* az Ã¶z fonsiyon olmalÄ±
+* admin iÃ§in post ekleme sayfasÄ±
+* mvvm kullanmaya Ã§alÄ±ÅŸ
+* postgresql vs sql server farklarÄ±nÄ± araÅŸtÄ±r
+* dokÄŸmanlarda ef core ile ilgili araÅŸtÄ±rmalarÄ± yap
+* genÃ§ayÄ±n videolarÄ± bak
+* JWT kÄ±smÄ±nÄ± dÃ¼ÅŸÃ¼n
+* DB iÃ§in kontrolleri yap ve sÃ¼rekli geliÅŸtirme hazÄ±rla orasÄ± en dertli yer
+* fluent validation yap attributeleri turkcell kullanmÄ±yor oraya uyum saÄŸlamalÄ±sÄ±n. Attribute ikna ettin ama fluent olmalÄ± kullanrak yapman lazÄ±m ben mimar deÄŸilim. HenÃ¼z :D
+* react js dalÄ±nacak fakat Ã¶nce BE sonra komple FE girilecek ve tÃ¼kÃ¼rÃ¼len yalanacak 
+* tÄ±klamalarda istatistik kullanÄ±labbilir ÅŸu ilden ÅŸu yaÅŸtan ÅŸu kadar giriÅŸ gibi sonra olur bu
+* blog eklemede resim ekleme, belirli tarihte ekleme, yazÄ± tipi ayarlamalarÄ±, gibi wordpress ÅŸeyleri yap hatta wordpress ile yapÄ±lan blog sitesi gibi admin editÃ¶r ve kullanÄ±cÄ± kÄ±smÄ± yap.
+* bloglarda IsRequired zaten true muÅŸ onlara bak sonarcube de hata vermese bile git test et olmadÄ± kaldÄ±r gereksiz kod
+* postgresql in iÃ§inde bir sÃ¼rÃ¼ farklÄ±lÄ±klar var sql server a gÃ¶re bak sonra ona gÃ¶re optimize et 
+* bloglarda publicationDate iÃ§in kontrol ekle iÅŸte vakti gelince yayÄ±nlasÄ±n ama burasÄ± nasÄ±l olacak hangfire yapar mÄ± bilemedinm.
+* db de userid gibi ÅŸeyleri ef kendi ayarlÄ±yor onlarÄ± ilerde kaldÄ±r ÅŸimdi karÄ±ÅŸacak kalsÄ±n
+* yorumlarÄ±da recursive yap yoruma yorum yapsÄ±nlar
+* bazÄ± yerlerde view eklebilir
+* BlogTag iÃ§in ol ara sistemde Core lar ile Ã§alÄ±ÅŸÄ±lmasÄ± lazÄ±m bakÄ±n
 * servislere sonradan mail servisi eklemeyi dene
-* CQRS yapısı eklemeyi deneyebilrisin
-* <del> özel IServicelerde IActionresult dön kalanlarını oradan kullan. </del>
-* <del> servisler httpstatus dönecek </del>
-* jwt xecurity olan çalışmadı hız için vazgeçtim onu düzelt securty yap
+* CQRS yapÄ±sÄ± eklemeyi deneyebilrisin
+* <del> Ã¶zel IServicelerde IActionresult dÃ¶n kalanlarÄ±nÄ± oradan kullan. </del>
+* <del> servisler httpstatus dÃ¶necek </del>
+* jwt xecurity olan Ã§alÄ±ÅŸmadÄ± hÄ±z iÃ§in vazgeÃ§tim onu dÃ¼zelt securty yap
 * 
 
 
 
 ### sorulacaklar
-* validationdaki Isrequired içindeki isrequired durmalı mı amacı config te require true dan false olursa exception fırlatıp hatırlatmak. config ve validation arasında constant içinden bağ kurmak
-* abstractservice ve abstractrepositorylerdeki parçalamalar mantıklı mı cevap alındı yoğurt yiğiş
-* take hatası sebebi nedir. _getallda göster hepsi dolu iken veriyor hatayı kaydetmeyi unuttum sadece sor hata exept etmek uzun sürebilir
-* user tablosunda emaili de key yaparak herkesin farklı email e sahip olması garantilenecek ama baseden gelen Id sonrası hata veriyor. birleştirme yolu var mı (galiba yok sor yinede)
-* bu jwt tokenı program.cs içinde tanımladıktan sonra oradaki ayarlarla nasıl kullanacağız nette süzgün bir sonuç bulamadım herkes iki kere jwt token üretici yapmış
-* bu apiye istek geldikçe ram şişiyor nasıl düzelticem anlamadım ve bulamadım. Idispose ekledim her yerede çok işe yaramadı sonrasında birazcık ram düşüyor ama 10 mb şişti ise 1 mb düşüyor kullanılmayınca fark yok gibi
-* react içinde (reactı gpt ile öğrendim bir döküman yada eğitim izlemedim) sayfalamada yada dosyalamada kısaca mimaride nasıl bir yapı kullanıyorsunuz proje üzerinden gösterebilir misniz? aklımda olsun
-* controllerlarda frombody ile get methodunu almak için js de yöntem bulamadım postmende oluyordu fetch ile alırken direk get isteklerinde body gönderilmez diyor. gpt ile tartıştım sağlıklı değil diyor mesela son x adet blog yazısı getir derken ben bu x adeti body içinde json ile göndermek istiyorum ki validation işlemleri kolay olsun methodu post yapsam çözerim ama get yöntemi bunu direk düz param ile mi çözeceğiz bana mantıklı gelmedi siz nasıl yapıyorsunuz.
-* reactta tokenı nasıl saklıyorsunuz ayrıca kullanıcı doğrulama için kullandığınız jwt dışı yöntem varsa nedir gösterir misiniz
-* sayfalamyı nasıl yapıyorsunuz. benim yöntem olur mu
-* isteklerde order filter gibi istekleri nasıl veriyorsunuz hepsine özel controller mı var yoksa bir controller içinden birdern fazla seçenek mi var
-* güvenlik için sql injection dışında taavsiyeniz var mı
-* .net için tavsiye kütüphane veya program.cs de şunları kullan dediğiniz var mı
-* son olarak iyi yazılımcı vs için değilde direk şunları bilmen seni öne taşır veya şu teknolojiler ilerde baskın olabilir öğren dediğiniz veya şuanki aklınızla geçmişinize tavsiye verseniz ne derdiniz yani benim durumumdakilere genel tavsiye ne derdiniz her şey olabilir sallıyom dişlerini düzenli fırçala ilerde ağrıyor gibide olur
-* anlayışınız ve iyi niyetiniz için teşekkürler
+* validationdaki Isrequired iÃ§indeki isrequired durmalÄ± mÄ± amacÄ± config te require true dan false olursa exception fÄ±rlatÄ±p hatÄ±rlatmak. config ve validation arasÄ±nda constant iÃ§inden baÄŸ kurmak
+* abstractservice ve abstractrepositorylerdeki parÃ§alamalar mantÄ±klÄ± mÄ± cevap alÄ±ndÄ± yoÄŸurt yiÄŸiÅŸ
+* take hatasÄ± sebebi nedir. _getallda gÃ¶ster hepsi dolu iken veriyor hatayÄ± kaydetmeyi unuttum sadece sor hata exept etmek uzun sÃ¼rebilir
+* user tablosunda emaili de key yaparak herkesin farklÄ± email e sahip olmasÄ± garantilenecek ama baseden gelen Id sonrasÄ± hata veriyor. birleÅŸtirme yolu var mÄ± (galiba yok sor yinede)
+* bu jwt tokenÄ± program.cs iÃ§inde tanÄ±mladÄ±ktan sonra oradaki ayarlarla nasÄ±l kullanacaÄŸÄ±z nette sÃ¼zgÃ¼n bir sonuÃ§ bulamadÄ±m herkes iki kere jwt token Ã¼retici yapmÄ±ÅŸ
+* bu apiye istek geldikÃ§e ram ÅŸiÅŸiyor nasÄ±l dÃ¼zelticem anlamadÄ±m ve bulamadÄ±m. Idispose ekledim her yerede Ã§ok iÅŸe yaramadÄ± sonrasÄ±nda birazcÄ±k ram dÃ¼ÅŸÃ¼yor ama 10 mb ÅŸiÅŸti ise 1 mb dÃ¼ÅŸÃ¼yor kullanÄ±lmayÄ±nca fark yok gibi
+* react iÃ§inde (reactÄ± gpt ile Ã¶ÄŸrendim bir dÃ¶kÃ¼man yada eÄŸitim izlemedim) sayfalamada yada dosyalamada kÄ±saca mimaride nasÄ±l bir yapÄ± kullanÄ±yorsunuz proje Ã¼zerinden gÃ¶sterebilir misniz? aklÄ±mda olsun
+* controllerlarda frombody ile get methodunu almak iÃ§in js de yÃ¶ntem bulamadÄ±m postmende oluyordu fetch ile alÄ±rken direk get isteklerinde body gÃ¶nderilmez diyor. gpt ile tartÄ±ÅŸtÄ±m saÄŸlÄ±klÄ± deÄŸil diyor mesela son x adet blog yazÄ±sÄ± getir derken ben bu x adeti body iÃ§inde json ile gÃ¶ndermek istiyorum ki validation iÅŸlemleri kolay olsun methodu post yapsam Ã§Ã¶zerim ama get yÃ¶ntemi bunu direk dÃ¼z param ile mi Ã§Ã¶zeceÄŸiz bana mantÄ±klÄ± gelmedi siz nasÄ±l yapÄ±yorsunuz.
+* reactta tokenÄ± nasÄ±l saklÄ±yorsunuz ayrÄ±ca kullanÄ±cÄ± doÄŸrulama iÃ§in kullandÄ±ÄŸÄ±nÄ±z jwt dÄ±ÅŸÄ± yÃ¶ntem varsa nedir gÃ¶sterir misiniz
+* sayfalamyÄ± nasÄ±l yapÄ±yorsunuz. benim yÃ¶ntem olur mu
+* isteklerde order filter gibi istekleri nasÄ±l veriyorsunuz hepsine Ã¶zel controller mÄ± var yoksa bir controller iÃ§inden birdern fazla seÃ§enek mi var
+* gÃ¼venlik iÃ§in sql injection dÄ±ÅŸÄ±nda taavsiyeniz var mÄ±
+* .net iÃ§in tavsiye kÃ¼tÃ¼phane veya program.cs de ÅŸunlarÄ± kullan dediÄŸiniz var mÄ±
+* son olarak iyi yazÄ±lÄ±mcÄ± vs iÃ§in deÄŸilde direk ÅŸunlarÄ± bilmen seni Ã¶ne taÅŸÄ±r veya ÅŸu teknolojiler ilerde baskÄ±n olabilir Ã¶ÄŸren dediÄŸiniz veya ÅŸuanki aklÄ±nÄ±zla geÃ§miÅŸinize tavsiye verseniz ne derdiniz yani benim durumumdakilere genel tavsiye ne derdiniz her ÅŸey olabilir sallÄ±yom diÅŸlerini dÃ¼zenli fÄ±rÃ§ala ilerde aÄŸrÄ±yor gibide olur
+* anlayÄ±ÅŸÄ±nÄ±z ve iyi niyetiniz iÃ§in teÅŸekkÃ¼rler
 
 
 ### FrontEnd
 
-* <del>link yönlendirmelerinde hata yaptım. sha256 yapıp güvenli olacağını düşündüm ama sayfa değişiminde veri gönderiminde zorluk yaşadım düzeltiriz inşallah</del>
+* <del>link yÃ¶nlendirmelerinde hata yaptÄ±m. sha256 yapÄ±p gÃ¼venli olacaÄŸÄ±nÄ± dÃ¼ÅŸÃ¼ndÃ¼m ama sayfa deÄŸiÅŸiminde veri gÃ¶nderiminde zorluk yaÅŸadÄ±m dÃ¼zeltiriz inÅŸallah</del>
 * 
 
 
